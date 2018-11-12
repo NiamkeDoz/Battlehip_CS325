@@ -8,3 +8,36 @@
     margin-left: auto;
     float: right;
 }
+
+#tableP{
+    display: inline-block;
+    width: 50%;
+
+}
+
+#tableP td:hover{
+    background-color: blue;
+    color: white;
+}
+
+#tableOp{
+    float: left;
+    width: 50%;
+}
+
+#tableOp td:hover{
+    background-color: blue;
+    color: white;
+}
+
+table{
+    border: solid 2px black;
+    
+}
+
+table td{
+    width:5%;
+    height: 5%;
+    text-align: center;
+    border: solid 2px black;
+}
