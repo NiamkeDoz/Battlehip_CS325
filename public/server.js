@@ -28,6 +28,14 @@ app.get('/', (req,res) => {
     res.sendFile('index.html')
 });
 
+app.put('/attack', (req,res)=>{
+    var attackPoint = req.attackPoint;
+    
+    // var playerName = req.playerName;
+    // var shipPosition = req.shipPosition
+    // var shipType = req.shipType;
+})
+
 // Position params will be taken as an x and y and the ship
 app.post('/createGame', (req,res) =>{
     // var playerName = req.query.playerName;
