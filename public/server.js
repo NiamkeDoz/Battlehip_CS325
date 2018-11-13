@@ -37,16 +37,11 @@ app.put('/attack', (req,res)=>{
     // var shipType = req.shipType;
 })
 
-// Position params will be taken as an x and y and the ship
+
 app.post('/createGame', (req,res) =>{
     // var playerName = req.query.playerName;
     var playerBoard = req.query.playerBoard;
     res.send(playerBoard);
-    // var data = req.params;
-    // var playerName = data.playerName;
-    // var ship = data.battleShip;
-    // var shipPositionX = data.shipPositionX;
-    // var shipPositionY = data.shipPositionY;
 });
 
 
