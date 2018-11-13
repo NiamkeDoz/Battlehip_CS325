@@ -26,7 +26,7 @@ opponent = {
 
 app.get('/', (req,res) => {
     // res.sendFile('index.html')
-    res.send("index.html");
+    res.sendFile("index.html");
 });
 
 app.put('/attack', (req,res)=>{
