@@ -1,5 +1,5 @@
-j = document.getElementById('tableP');
+// j = document.getElementById('tableP');
 
-j.addEventListener('click', ()=>{
-    console.log('hello from index.js');
-}, true);
+// j.addEventListener('click', ()=>{
+//     console.log('hello from index.js');
+// }, true);
