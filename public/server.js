@@ -23,7 +23,8 @@ app.post('/createGame', (req,res)=>{
     res.send('player ' + playerName + 'has been created');
 })
 
-app.put('/attack', (req,res)=>{
+app.get('/attack', (req,res)=>{
+
     var attackPoint = req.query.attackPoint;
     var attackingPlayer = req.query.attackingPlayer;
 
@@ -39,8 +40,11 @@ app.put('/attack', (req,res)=>{
         }
         // res.send(peopleinGame[player].playerName);
     }
-    res.send('The player you are looking for doesn\'nt exist');
+    res.send("Don't send your name, send the opponents!");
+})
 
+app.post('/deadShip', (req,res)=>{
+    /**If a players ship has been killed then that ships coords no longer matter */
 })
 
 
