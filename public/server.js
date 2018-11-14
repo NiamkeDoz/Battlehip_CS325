@@ -6,6 +6,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
+
 player = {
     'playerName': null,
     'airCraftPosition': null,
@@ -25,12 +26,12 @@ opponent = {
 };
 
 app.get('/', (req,res) => {
-    res.sendFile('index.html')
+    res.send('Hello from js')
 });
 
 app.put('/attack', (req,res)=>{
     var attackPoint = req.attackPoint;
-    
+    res.send("This is working");
     // var playerName = req.playerName;
     // var shipPosition = req.shipPosition
     // var shipType = req.shipType;
