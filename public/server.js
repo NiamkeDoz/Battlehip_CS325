@@ -6,42 +6,49 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
-player = {
-    'playerName': null,
-    'airCraftPosition': null,
-    'battleShipPosition': null,
-    'destroyerPosition': null,
-    'submarinePosition': null,
-    'patrolboatPosition': null
-};
 
-opponent = {
-    'opponentName': null,
-    'airCraftPosition': null,
-    'battleShipPosition': null,
-    'destroyerPosition': null,
-    'submarinePosition': null,
-    'patrolboatPosition': null
-};
+peopleinGame = [];
+
+//we will use this because it has a predetermined values
+testAgainsPlayer = {'playerName':'John', 'playerBoard': ['A3', 'B4']};
+peopleinGame.push(testAgainsPlayer);
 
 app.get('/', (req,res) => {
-    // res.sendFile('index.html')
     res.sendFile("index.html");
 });
 
+app.post('/createGame', (req,res)=>{
+    var playerName = req.query.playerName;
+    var playerBoard = req.query.playerBoard;
+    res.send('player ' + playerName + 'has been created');
+})
+
 app.put('/attack', (req,res)=>{
-    var attackPoint = req.attackPoint;
-    
-    // var playerName = req.playerName;
-    // var shipPosition = req.shipPosition
-    // var shipType = req.shipType;
+    var attackPoint = req.query.attackPoint;
+    var attackingPlayer = req.query.attackingPlayer;
+
+        //at each index there is a person object so we must itterate thorugh each one
+    for(var player in peopleinGame){
+        //make sure we aren't attacking ourselves
+        if (attackingPlayer != peopleinGame[player].playerName){
+            if(peopleinGame[player].playerBoard.includes(attackPoint)){
+                res.send(true);
+            }else{
+                res.send(false);
+            }
+        }
+        // res.send(peopleinGame[player].playerName);
+    }
+    res.send('The player you are looking for doesn\'nt exist');
+
 })
 
 
 app.post('/createGame', (req,res) =>{
-    // var playerName = req.query.playerName;
-    var playerBoard = req.query.playerBoard;
-    res.send(playerBoard);
+    peopleinGame.push({
+        'playerName': req.query.playerName,
+        'playerBoard': req.query.playerBoard
+    })
 });
 
 
