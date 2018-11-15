@@ -6,9 +6,9 @@
     <title>BattleShip</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
 </head>
-    <body>
+    <body id = "bck">
         <div id = "tableP">
             <table>
                 <tr>
@@ -158,9 +158,33 @@
                     <td id = "I10"></td>
                     <td id = "J10"></td>
                 </tr>
-
             </table>
+            <div id = "boardPieces">
+                <form action="">
+                    Carrier (Five Spots): 
+                    <input type="text" placeholder="location" name = "carrier"><br>
+                    
+                    Battleship (Four Spots): 
+                    <input type="text" placeholder="location" name = "battleship"><br>
+
+                    Cruiser (Three Spots): 
+                    <input type="text" placeholder="location" name = "cruiser"><br>
+                    
+                    Submarine (Three Spots): 
+                    <input type="text" placeholder="location" name = "submarine"><br>
+                
+                    Destroyer (Two Spots):
+                    <input type="text" placeholder="location" name = "destroyer"><br>
+                    <input type="submit" name="submit" id="submitBtn">
+                    
+                </form>
+            </div>
         </div>
+        <div id = playerInput>
+            <input id = "player" type ="text" placeholder="Player Shot">
+            <button id = "playerShot" type="button" onclick="fire()">Fire</button>
+        </div>
+       
         <div id = "tableOp">
             <table>
                 <tr>
@@ -310,12 +334,11 @@
                     <td id = "I10"></td>
                     <td id = "J10"></td>
                 </tr>
-
             </table>
         </div>
     <div>
     </div>
-    <script src="../js/scooter.js"></script>
+    <script src="./js/scooter.js"></script>
     <script src="../js/emmett.js"></script>
     <script src="../js/taylor.js"></script>
     </body>
