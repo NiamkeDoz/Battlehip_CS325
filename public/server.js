@@ -9,9 +9,14 @@ app.use(express.static('public'));
 
 peopleinGame = [];
 
-//we will use this because it has a predetermined values
-testAgainsPlayer = {'playerName':'John', 'playerBoard': ['A3', 'B4']};
-peopleinGame.push(testAgainsPlayer);
+testPlayerData = {
+    'playerName': 'testPlayer',
+    'carrier': ['A1', 'A2', ,'A3','A4','A5'], //5
+    'battleship': ['B1', 'B2', 'B3', 'B4'], //4
+    'cruiser': ['C1','C2','C3'], //3
+    'submarine': ['D1','D2','D3'], //3
+    'destroyer': ['E1','E2'] //2
+}
 
 app.get('/', (req,res) => {
     res.sendFile("index.html");
@@ -24,23 +29,9 @@ app.post('/createGame', (req,res)=>{
 })
 
 app.get('/attack', (req,res)=>{
-
+    var opponentToAttack = req.query.opponentToAttack;
     var attackPoint = req.query.attackPoint;
-    var attackingPlayer = req.query.attackingPlayer;
 
-        //at each index there is a person object so we must itterate thorugh each one
-    for(var player in peopleinGame){
-        //make sure we aren't attacking ourselves
-        if (attackingPlayer != peopleinGame[player].playerName){
-            if(peopleinGame[player].playerBoard.includes(attackPoint)){
-                res.send(true);
-            }else{
-                res.send(false);
-            }
-        }
-        // res.send(peopleinGame[player].playerName);
-    }
-    res.send("Don't send your name, send the opponents!");
 })
 
 app.post('/deadShip', (req,res)=>{
@@ -51,8 +42,12 @@ app.post('/deadShip', (req,res)=>{
 app.post('/createGame', (req,res) =>{
     peopleinGame.push({
         'playerName': req.query.playerName,
-        'playerBoard': req.query.playerBoard
-    })
+        'carrier': req.query.destroyer,
+        'battleship': req.query.battleship,
+        'cruiser': req.query.cruiser,
+        'submarine': req.query.submarine,
+        'destroyer': req.query.destroyer
+    });
 });
 
 
