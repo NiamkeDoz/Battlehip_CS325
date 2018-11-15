@@ -9,6 +9,7 @@ app.use(express.static('public'));
 
 peopleinGame = [];
 
+//For testing purposes delete when we submit
 testPlayerData = {
     'playerName': 'testPlayer',
     'carrier': ['A1', 'A2', ,'A3','A4','A5'], //5
@@ -17,22 +18,37 @@ testPlayerData = {
     'submarine': ['D1','D2','D3'], //3
     'destroyer': ['E1','E2'] //2
 }
+peopleinGame.push(testPlayerData);
+//END of testing purposes
 
 app.get('/', (req,res) => {
     res.sendFile("index.html");
 });
 
-app.post('/createGame', (req,res)=>{
-    var playerName = req.query.playerName;
-    var playerBoard = req.query.playerBoard;
-    res.send('player ' + playerName + 'has been created');
-})
-
 app.get('/attack', (req,res)=>{
     var opponentToAttack = req.query.opponentToAttack;
     var attackPoint = req.query.attackPoint;
-
-})
+    //will loop through the player object list
+    for(var player in peopleinGame){
+        //make sure the opponent isn't attacking themself
+        if(opponentToAttack == peopleinGame[player].playerName){
+            if (peopleinGame[player].carrier.includes(attackPoint)){
+                res.send(true);
+            } else if(peopleinGame[player].battleship.includes(attackPoint)){
+                res.send(true);
+            } else if(peopleinGame[player].cruiser.includes(attackPoint)){
+                res.send(true);
+            } else if(peopleinGame[player].submarine.includes(attackPoint)){
+                res.send(true);
+            } else if(peopleinGame[player].destroyer.includes(attackPoint)){
+                res.send(true);
+            } else{
+                res.send(false);
+            }
+        }
+    }
+    res.send('Opponent couldn\'nt be found');
+});
 
 app.post('/deadShip', (req,res)=>{
     /**If a players ship has been killed then that ships coords no longer matter */
