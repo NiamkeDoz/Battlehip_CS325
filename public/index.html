@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./css/index.css">
 </head>
-    <body>
+    <body id = "bck">
         <div id = "tableP">
             <table>
                 <tr>
@@ -159,39 +159,30 @@
                     <td id = "J10"></td>
                 </tr>
             </table>
-            <div class = "boardPieces">
-                <form action="" method="GET">
-                    Carrier: 
-                    <input type="text" placeholder="start location" name = "carrierStart">
-                    <input type="text" placeholder="end location" name = "carrierEnd">  
-                    <input type="radio" name = "carLayout" value ="Horizontal">Horizontal
-                    <input type="radio" name = "carLayout" value ="Vertical">Vertical<br>
-                    Battleship: 
-                    <input type="text" placeholder="start location" name = "battleshipStart">
-                    <input type="text" placeholder="end location" name = "battleshipEnd">  
-                    <input type="radio" name = "battleLayout" value ="Horizontal">Horizontal
-                    <input type="radio" name = "battleLayout" value ="Vertical">Vertical<br>
-                    Cruiser: 
-                    <input type="text" placeholder="start location" name = "cruiserStart"> 
-                    <input type="text" placeholder="end location" name = "cruiserEnd">
-                    <input type="radio" name = "cruiserLayout" value ="Horizontal">Horizontal
-                    <input type="radio" name = "cruiserLayout" value ="Vertical">Vertical<br>
-                    Submarine: 
-                    <input type="text" placeholder="start location" name = "submarineStart">
-                    <input type="text" placeholder="end location" name = "submarineEnd">  
-                    <input type="radio" name = "subLayout" value ="Horizontal">Horizontal
-                    <input type="radio" name = "subLayout" value ="Vertical">Vertical<br>
-                    Destroyer:
-                    <input type="text" placeholder="start location" name = "destroyerStart">
-                    <input type="text" placeholder="end location" name = "destroyerEnd">  
-                    <input type="radio" name = "destroyLayout" value ="Horizontal">Horizontal
-                    <input type="radio" name = "destroyLayout" value ="Vertical">Vertical<br>
+            <div id = "boardPieces">
+                <form action="">
+                    Carrier (Five Spots): 
+                    <input type="text" placeholder="location" name = "carrier"><br>
+                    
+                    Battleship (Four Spots): 
+                    <input type="text" placeholder="location" name = "battleship"><br>
+
+                    Cruiser (Three Spots): 
+                    <input type="text" placeholder="location" name = "cruiser"><br>
+                    
+                    Submarine (Three Spots): 
+                    <input type="text" placeholder="location" name = "submarine"><br>
+                
+                    Destroyer (Two Spots):
+                    <input type="text" placeholder="location" name = "destroyer"><br>
+                    <input type="submit" name="submit" id="submitBtn">
+                    
                 </form>
             </div>
         </div>
         <div id = playerInput>
             <input id = "player" type ="text" placeholder="Player Shot">
-            <button id = "playerShot" type="button">Fire</button>
+            <button id = "playerShot" type="button" onclick="fire()">Fire</button>
         </div>
        
         <div id = "tableOp">
@@ -347,7 +338,7 @@
         </div>
     <div>
     </div>
-    <script src="../js/scooter.js"></script>
+    <script src="./js/scooter.js"></script>
     <script src="../js/emmett.js"></script>
     <script src="../js/taylor.js"></script>
     </body>

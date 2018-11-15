@@ -13,6 +13,10 @@
     color: white;
 }
 
+form{
+    border: solid 2px black;
+}
+
 #tableOp{
     display: block;
     width: 50%;
@@ -41,6 +45,8 @@ table td{
     width: 25%;
     height: 50px;
 }
+
+
 
 #playerInput{
     display: block;
