@@ -6,7 +6,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
-
+//This will be our in memory data storage
 peopleinGame = [];
 
 //For testing purposes delete when we submit
@@ -33,15 +33,20 @@ app.get('/attack', (req,res)=>{
         //make sure the opponent isn't attacking themself
         if(opponentToAttack == peopleinGame[player].playerName){
             if (peopleinGame[player].carrier.includes(attackPoint)){
-                res.send(true);
+                peopleinGame[player].carrier = peopleinGame[player].carrier.filter(e => e !== attackPoint);
+                res.send(peopleinGame[player].carrier);
             } else if(peopleinGame[player].battleship.includes(attackPoint)){
-                res.send(true);
+                peopleinGame[player].battleship = peopleinGame[player].carrier.filter(e => e !== attackPoint);
+                res.send(peopleinGame[player].battleship);
             } else if(peopleinGame[player].cruiser.includes(attackPoint)){
-                res.send(true);
+                peopleinGame[player].cruiser = peopleinGame[player].carrier.filter(e => e !== attackPoint);
+                res.send(peopleinGame[player].cruiser);
             } else if(peopleinGame[player].submarine.includes(attackPoint)){
-                res.send(true);
+                peopleinGame[player].submarine = peopleinGame[player].carrier.filter(e => e !== attackPoint);
+                res.send(peopleinGame[player].submarine);
             } else if(peopleinGame[player].destroyer.includes(attackPoint)){
-                res.send(true);
+                peopleinGame[player].destroyer = peopleinGame[player].carrier.filter(e => e !== attackPoint);
+                res.send(peopleinGame[player].destroyer);
             } else{
                 res.send(false);
             }
@@ -52,6 +57,7 @@ app.get('/attack', (req,res)=>{
 
 app.post('/deadShip', (req,res)=>{
     /**If a players ship has been killed then that ships coords no longer matter */
+    
 })
 
 
