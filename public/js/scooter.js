@@ -1,3 +1,12 @@
+var opp     = document.getElementById("tableOp");
+var player  = document.getElementById("tableP");
+
+var carShip   = [];
+var batShip   = [];
+var cruShip   = [];
+var subShip   = [];
+var desShip   = [];
+
 function boardSetup(){
     var canvasP = document.getElementById("canvasP");
     var ctxP    = canvasP.getContext("2d");
@@ -5,20 +14,27 @@ function boardSetup(){
     var height  = 500;
 }
 
-var opp     = document.getElementById("tableOp");
-var player  = document.getElementById("tableP");
-
 function onSubmit(){
-    var carrier     = document.getElementsByName("carrier").toString();
-    var battleship  = document.getElementsByName("battleship").toString();
-    var cruiser     = document.getElementsByName("cruiser").toString();
-    var submarine   = document.getElementsByName("submarine").toString();
-    var destroyer   = document.getElementsByName("destroyer").toString();
+    var carrier     = document.getElementById("carrier").value;
+    var battleship  = document.getElementById("battleship").value;
+    var cruiser     = document.getElementById("cruiser").value;
+    var submarine   = document.getElementById("submarine").value;
+    var destroyer   = document.getElementById("destroyer").value;
     var hide        = document.getElementById("boardPieces");
     hide.style.display = "none";
+    drawShips(carrier, carShip);
+    drawShips(battleship, batShip);
+    drawShips(cruiser, cruShip);
+    drawShips(submarine, subShip);
+    drawShips(destroyer, desShip);
 }
 
-function drawShips(ship){
+function drawShips(ship, storedship){
+    var temp = ship.split(",");
+    for(var i = 0; i < temp.length; i++){
+        storedship.push(temp[i]);
+        document.getElementById(temp[i]).style.backgroundColor = "blue";
+    }
     
 }
 
