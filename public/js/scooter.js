@@ -1,6 +1,8 @@
 var opp     = document.getElementById("tableOp");
 var player  = document.getElementById("tableP");
 
+var playerTurn = false;
+
 var carShip   = [];
 var batShip   = [];
 var cruShip   = [];
@@ -39,9 +41,15 @@ function drawShips(ship, storedship){
 }
 
 function fire(){
-    var playerShot = document.getElementById("player").value;
-    playerShot.toString().charAt(0).toUpperCase();
-    document.getElementById(playerShot).style.backgroundColor = "red";
+    if(playerTurn != true){
+        alert("Not your turn!");
+    }else{
+        var playerShot = document.getElementById("player").value;
+        playerShot.toString().charAt(0).toUpperCase();
+        document.getElementById(playerShot).style.backgroundColor = "red";
+    }
+    
+    
 
 }
 // j = document.getElementById('tableP');
