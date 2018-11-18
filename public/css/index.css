@@ -13,8 +13,9 @@
     color: white;
 }
 
-form{
-    border: solid 2px black;
+#boardPieces input{
+    display: block;
+    text-align: center;
 }
 
 #tableOp{
