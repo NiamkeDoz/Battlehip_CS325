@@ -3,18 +3,13 @@ var player  = document.getElementById("tableP");
 
 var playerTurn = false;
 
-var carShip   = [];
-var batShip   = [];
-var cruShip   = [];
-var subShip   = [];
-var desShip   = [];
+var carShip     = [];
+var batShip     = [];
+var cruShip     = [];
+var subShip     = [];
+var desShip     = [];
+var shipColors  = ["blue","green","black","brown","pink","red","orange"];
 
-function boardSetup(){
-    var canvasP = document.getElementById("canvasP");
-    var ctxP    = canvasP.getContext("2d");
-    var width   = 500;
-    var height  = 500;
-}
 
 function onSubmit(){
     var carrier     = document.getElementById("carrier").value;
@@ -29,6 +24,7 @@ function onSubmit(){
     drawShips(cruiser, cruShip);
     drawShips(submarine, subShip);
     drawShips(destroyer, desShip);
+    
 }
 
 function drawShips(ship, storedship){
@@ -37,7 +33,7 @@ function drawShips(ship, storedship){
         storedship.push(temp[i]);
         document.getElementById(temp[i]).style.backgroundColor = "blue";
     }
-    
+
 }
 
 function fire(){
