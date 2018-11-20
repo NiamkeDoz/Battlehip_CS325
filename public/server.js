@@ -32,7 +32,13 @@ app.get('/attack', (req,res)=>{
     var opponentToAttack = req.query.opponentToAttack;
     var attackPoint = req.query.attackPoint;
     for(var player in peopleinGame){
+        //disable the player ability who attacked to attack again
+        if(opponentToAttack != peopleinGame[player].playerName){
+            peopleinGame[player].isPlayerTurn = false;
+        }
         if(opponentToAttack == peopleinGame[player].playerName){
+            //enable the player that was just attacked to true
+            peopleinGame[player].isPlayerTurn = true;
             if(peopleinGame[player].carrier.includes(attackPoint)){
                 res.send(true);
             }
@@ -49,17 +55,23 @@ app.get('/attack', (req,res)=>{
         }
     }
     res.send("Opponent couldn't be found");
-})
+});
 
-function changeTurn(player, opponent){
-    
-}
+app.get('/isMyTurn', (req,res)=>{
+    var playerName = req.query.playerName;
+    for(var player in peopleinGame){
+        if(playerName == peopleinGame[player]){
+            res.send(peopleinGame[player].isPlayerTurn)
+        }
+    }
+    res.send("Player couldn't be found");
+});
 
 
 app.post('/deadShip', (req,res)=>{
     /**If a players ship has been killed then that ships coords no longer matter */
     
-})
+});
 
 
 app.post('/createGame', (req,res) =>{
