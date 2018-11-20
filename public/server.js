@@ -6,6 +6,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
+//Global Variable to set first oppenent to create game to attack first
+var globalIsPlayerTurn = true;
+
 //This will be our in memory data storage
 peopleinGame = [];
 
@@ -28,32 +31,30 @@ app.get('/', (req,res) => {
 app.get('/attack', (req,res)=>{
     var opponentToAttack = req.query.opponentToAttack;
     var attackPoint = req.query.attackPoint;
-    //will loop through the player object list
     for(var player in peopleinGame){
-        //make sure the opponent isn't attacking themself
         if(opponentToAttack == peopleinGame[player].playerName){
-            if (peopleinGame[player].carrier.includes(attackPoint)){
-                peopleinGame[player].carrier = peopleinGame[player].carrier.filter(e => e !== attackPoint);
-                res.send(peopleinGame[player].carrier);
-            } else if(peopleinGame[player].battleship.includes(attackPoint)){
-                peopleinGame[player].battleship = peopleinGame[player].carrier.filter(e => e !== attackPoint);
-                res.send(peopleinGame[player].battleship);
-            } else if(peopleinGame[player].cruiser.includes(attackPoint)){
-                peopleinGame[player].cruiser = peopleinGame[player].carrier.filter(e => e !== attackPoint);
-                res.send(peopleinGame[player].cruiser);
+            if(peopleinGame[player].carrier.includes(attackPoint)){
+                res.send(true);
+            }
+            else if (peopleinGame[player].battleship.includes(attackPoint)){
+                res.send(true);
+            }
+            else if(peopleinGame[player].cruiser.includes(attackPoint)){
+                res.send(true);
             } else if(peopleinGame[player].submarine.includes(attackPoint)){
-                peopleinGame[player].submarine = peopleinGame[player].carrier.filter(e => e !== attackPoint);
-                res.send(peopleinGame[player].submarine);
+                res.send(true);
             } else if(peopleinGame[player].destroyer.includes(attackPoint)){
-                peopleinGame[player].destroyer = peopleinGame[player].carrier.filter(e => e !== attackPoint);
-                res.send(peopleinGame[player].destroyer);
-            } else{
-                res.send(false);
+                res.send(true);
             }
         }
     }
-    res.send('Opponent couldn\'nt be found');
-});
+    res.send("Opponent couldn't be found");
+})
+
+function changeTurn(player, opponent){
+    
+}
+
 
 app.post('/deadShip', (req,res)=>{
     /**If a players ship has been killed then that ships coords no longer matter */
@@ -68,8 +69,11 @@ app.post('/createGame', (req,res) =>{
         'battleship': req.query.battleship,
         'cruiser': req.query.cruiser,
         'submarine': req.query.submarine,
-        'destroyer': req.query.destroyer
+        'destroyer': req.query.destroyer,
+        'isPlayerTurn': globalIsPlayerTurn
     });
+    globalIsPlayerTurn = false;
+    res.send(req.query.playerName + 'game has been created.');
 });
 
 
