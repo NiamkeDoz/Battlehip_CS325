@@ -3,15 +3,20 @@ var player  = document.getElementById("tableP");
 
 var playerTurn = false;
 
+//Stores the ships locations
 var carShip     = [];
 var batShip     = [];
 var cruShip     = [];
 var subShip     = [];
 var desShip     = [];
+
+//draw the ships in a different color.
 var shipColors  = ["blue","green","black","brown","pink","red","orange"];
 
+ 
 
 function onSubmit(){
+    
     var carrier     = document.getElementById("carrier").value;
     var battleship  = document.getElementById("battleship").value;
     var cruiser     = document.getElementById("cruiser").value;
@@ -28,10 +33,14 @@ function onSubmit(){
 }
 
 function drawShips(ship, storedship){
+    //generates a random color for battleships.
+    var randomNum   = Math.floor(Math.random() * 7);
+    var color       = shipColors[randomNum];
+    alert(color);
     var temp = ship.split(",");
     for(var i = 0; i < temp.length; i++){
         storedship.push(temp[i]);
-        document.getElementById(temp[i]).style.backgroundColor = "blue";
+        document.getElementById(temp[i]).style.backgroundColor = color;
     }
 
 }
