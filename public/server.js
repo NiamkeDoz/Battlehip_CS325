@@ -15,9 +15,9 @@ peopleinGame = [];
 //For testing purposes delete when we submit
 testPlayerData = {
     'playerName': 'testPlayer',
-    'carrier': ['A1', 'A2', ,'A3','A4','A5'], //5
+    'carrier': ['A1', 'A2','A3','A4','A5'], //5
     'battleship': ['B1', 'B2', 'B3', 'B4'], //4
-    'cruiser': ['C1','C2','C3'], //3
+    'cruiser': ['C1','C2','C3'], //3print(__version__)
     'submarine': ['D1','D2','D3'], //3
     'destroyer': ['E1','E2'] //2
 }
@@ -27,8 +27,8 @@ peopleinGame.push(testPlayerData);
 app.get('/', (req,res) => {
     res.sendFile("index.html");
 });
-
-app.get('/attack', (req,res)=>{
+  
+app.put('/attack', (req,res)=>{
     var opponentToAttack = req.query.opponentToAttack;
     var attackPoint = req.query.attackPoint;
     for(var player in peopleinGame){
@@ -37,9 +37,11 @@ app.get('/attack', (req,res)=>{
             peopleinGame[player].isPlayerTurn = false;
         }
         if(opponentToAttack == peopleinGame[player].playerName){
+            console.log(opponentToAttack);
             //enable the player that was just attacked to true
             peopleinGame[player].isPlayerTurn = true;
             if(peopleinGame[player].carrier.includes(attackPoint)){
+                console.log("Carrier should have the attack point")
                 res.send(true);
             }
             else if (peopleinGame[player].battleship.includes(attackPoint)){
@@ -60,7 +62,7 @@ app.get('/attack', (req,res)=>{
 app.get('/isMyTurn', (req,res)=>{
     var playerName = req.query.playerName;
     for(var player in peopleinGame){
-        if(playerName == peopleinGame[player]){
+        if(playerName == peopleinGame[player].playerName){
             res.send(peopleinGame[player].isPlayerTurn)
         }
     }
@@ -85,7 +87,7 @@ app.post('/createGame', (req,res) =>{
         'isPlayerTurn': globalIsPlayerTurn
     });
     globalIsPlayerTurn = false;
-    res.send(req.query.playerName + 'game has been created.');
+    res.send(req.query.playerName + '  game has been created.');
 });
 
 
