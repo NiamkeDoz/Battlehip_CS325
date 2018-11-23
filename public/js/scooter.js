@@ -9,6 +9,7 @@ var batShip     = [];
 var cruShip     = [];
 var subShip     = [];
 var desShip     = [];
+var gameBoard   = [[]];
 
 //draw the ships in a different color.
 var shipColors  = ["blue","green","black","brown","pink","red","orange"];
@@ -44,17 +45,12 @@ function drawShips(ship, storedship){
 
 }
 
-function fire(){
-    if(playerTurn != true){
-        alert("Not your turn!");
-    }else{
-        var playerShot = document.getElementById("player").value;
-        playerShot.toString().charAt(0).toUpperCase();
-        document.getElementById(playerShot).style.backgroundColor = "red";
-    }
-    
-    
 
+
+function fire(){
+    var playerShot = document.getElementById("player").value;
+    playerShot.toString().charAt(0).toUpperCase();
+    document.getElementById(playerShot).style.backgroundColor = "red";
 }
 // j = document.getElementById('tableP');
 // j.addEventListener('click', ()=>{
