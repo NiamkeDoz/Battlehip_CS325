@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
-
+app.setMaxListeners(2);
 //Global Variable to set first oppenent to create game to attack first
 var globalIsPlayerTurn = true;
 
