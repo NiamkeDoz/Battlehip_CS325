@@ -3,20 +3,21 @@ var player  = document.getElementById("tableP");
 
 var playerTurn = false;
 
-var carShip   = [];
-var batShip   = [];
-var cruShip   = [];
-var subShip   = [];
-var desShip   = [];
+//Stores the ships locations
+var carShip     = [];
+var batShip     = [];
+var cruShip     = [];
+var subShip     = [];
+var desShip     = [];
+var gameBoard   = [[]];
 
-function boardSetup(){
-    var canvasP = document.getElementById("canvasP");
-    var ctxP    = canvasP.getContext("2d");
-    var width   = 500;
-    var height  = 500;
-}
+//draw the ships in a different color.
+var shipColors  = ["blue","green","black","brown","pink","red","orange"];
+
+ 
 
 function onSubmit(){
+    
     var carrier     = document.getElementById("carrier").value;
     var battleship  = document.getElementById("battleship").value;
     var cruiser     = document.getElementById("cruiser").value;
@@ -29,28 +30,27 @@ function onSubmit(){
     drawShips(cruiser, cruShip);
     drawShips(submarine, subShip);
     drawShips(destroyer, desShip);
+    
 }
 
 function drawShips(ship, storedship){
+    //generates a random color for battleships.
+    var randomNum   = Math.floor(Math.random() * 7);
+    var color       = shipColors[randomNum];
     var temp = ship.split(",");
     for(var i = 0; i < temp.length; i++){
         storedship.push(temp[i]);
-        document.getElementById(temp[i]).style.backgroundColor = "blue";
+        document.getElementById(temp[i]).style.backgroundColor = color;
     }
-    
+
 }
 
-function fire(){
-    if(playerTurn != true){
-        alert("Not your turn!");
-    }else{
-        var playerShot = document.getElementById("player").value;
-        playerShot.toString().charAt(0).toUpperCase();
-        document.getElementById(playerShot).style.backgroundColor = "red";
-    }
-    
-    
 
+
+function fire(){
+    var playerShot = document.getElementById("player").value;
+    playerShot.toString().charAt(0).toUpperCase();
+    document.getElementById(playerShot).style.backgroundColor = "red";
 }
 // j = document.getElementById('tableP');
 // j.addEventListener('click', ()=>{

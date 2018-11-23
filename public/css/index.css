@@ -1,3 +1,12 @@
+body{
+    background-color: #4CB5F5
+}
+
+#title{
+    font-size: 2em;
+    text-align: center;
+
+}
 
 #tableP{
     display: block;
@@ -31,8 +40,10 @@
 
 table{
     border: solid 2px black;
+    border-radius: 10px;
     width: 100%;
     margin: 0 auto;
+    background-color: #B7B8B6;
 }
 
 table td{
@@ -40,6 +51,9 @@ table td{
     height: 5%;
     text-align: center;
     border: solid 2px black;
+    border-radius: 5px;
+    background-color: white;
+    
 }
 
 .boardPieces img{
