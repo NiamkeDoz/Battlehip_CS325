@@ -18,8 +18,6 @@ var isGameOver  = false;
 //draw the ships in a different color.
 var shipColors  = ["blue","green","black","brown","pink","red","orange"];
 
- 
-
 function onSubmit(){
     
     var carrier     = document.getElementById("carrier").value;
@@ -35,10 +33,10 @@ function onSubmit(){
     drawShips(submarine, subShip);
     drawShips(destroyer, desShip);
     createBoard(gameBoard);
-    
 }
 
 function createBoard(board){
+    //2d Array visualization of game board.
     for(var x = 1; x < 10; x++){
         board[x] = [];
         for(var k = 1; k < 10; k++){
@@ -56,10 +54,8 @@ function drawShips(ship, storedship){
         storedship.push(temp[i]);
         document.getElementById(temp[i]).style.backgroundColor = color;
     }
-
 }
 
-//
 function gameStatusCheck(){
     if(sunkenShips != 5){
         isGameOver = false;
@@ -71,14 +67,8 @@ function gameStatusCheck(){
     
 }
 
-
-
 function fire(){
     var playerShot = document.getElementById("player").value;
     playerShot.toString().charAt(0).toUpperCase();
     document.getElementById(playerShot).style.backgroundColor = "red";
 }
-// j = document.getElementById('tableP');
-// j.addEventListener('click', ()=>{
-//     console.log('hello from index.js');
-// }, true);
