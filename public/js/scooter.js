@@ -9,7 +9,11 @@ var batShip     = [];
 var cruShip     = [];
 var subShip     = [];
 var desShip     = [];
-var gameBoard   = [[]];
+var gameBoard   = [];
+
+var numOfShips  = 5;
+var sunkenShips = 0;
+var isGameOver  = false;
 
 //draw the ships in a different color.
 var shipColors  = ["blue","green","black","brown","pink","red","orange"];
@@ -30,7 +34,17 @@ function onSubmit(){
     drawShips(cruiser, cruShip);
     drawShips(submarine, subShip);
     drawShips(destroyer, desShip);
+    createBoard(gameBoard);
     
+}
+
+function createBoard(board){
+    for(var x = 1; x < 10; x++){
+        board[x] = [];
+        for(var k = 1; k < 10; k++){
+            board[x][k] = ".";
+        }
+    }
 }
 
 function drawShips(ship, storedship){
@@ -43,6 +57,18 @@ function drawShips(ship, storedship){
         document.getElementById(temp[i]).style.backgroundColor = color;
     }
 
+}
+
+//
+function gameStatusCheck(){
+    if(sunkenShips != 5){
+        isGameOver = false;
+    }else{
+        isGameOver = true;
+        //Display winner of the Game
+        alert("Game Over!");
+    }
+    
 }
 
 
