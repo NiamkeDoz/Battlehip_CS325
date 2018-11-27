@@ -5,47 +5,106 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
+app.setMaxListeners(2);
+//Global Variable to set first oppenent to create game to attack first
+var globalIsPlayerTurn = true;
 
-player = {
-    'playerName': null,
-    'airCraftPosition': null,
-    'battleShipPosition': null,
-    'destroyerPosition': null,
-    'submarinePosition': null,
-    'patrolboatPosition': null
-};
+//This will be our in memory data storage
+peopleinGame = [];
 
-opponent = {
-    'opponentName': null,
-    'airCraftPosition': null,
-    'battleShipPosition': null,
-    'destroyerPosition': null,
-    'submarinePosition': null,
-    'patrolboatPosition': null
-};
+//For testing purposes delete when we submit
+testPlayerData = {
+    'playerName': 'testPlayer',
+    'carrier': ['A1', 'A2','A3','A4','A5'], //5
+    'battleship': ['B1', 'B2', 'B3', 'B4'], //4
+    'cruiser': ['C1','C2','C3'], //3print(__version__)
+    'submarine': ['D1','D2','D3'], //3
+    'destroyer': ['E1','E2'] //2
+}
+peopleinGame.push(testPlayerData);
+//END of testing purposes
 
 app.get('/', (req,res) => {
-    res.sendFile('index.html')
+    res.sendFile("index.html");
+});
+  
+app.put('/attack', (req,res)=>{
+    var opponentToAttack = req.query.opponentToAttack;
+    var attackPoint = req.query.attackPoint;
+    for(var player in peopleinGame){
+        //disable the player ability who attacked to attack again
+        if(opponentToAttack != peopleinGame[player].playerName){
+            peopleinGame[player].isPlayerTurn = false;
+        }
+        if(opponentToAttack == peopleinGame[player].playerName){
+            console.log(opponentToAttack);
+            //enable the player that was just attacked to true
+            peopleinGame[player].isPlayerTurn = true;
+            if(peopleinGame[player].carrier.includes(attackPoint)){
+                console.log("Carrier should have the attack point")
+                res.send(true);
+            }
+            else if (peopleinGame[player].battleship.includes(attackPoint)){
+                res.send(true);
+            }
+            else if(peopleinGame[player].cruiser.includes(attackPoint)){
+                res.send(true);
+            } else if(peopleinGame[player].submarine.includes(attackPoint)){
+                res.send(true);
+            } else if(peopleinGame[player].destroyer.includes(attackPoint)){
+                res.send(true);
+            }
+        }
+    }
+    res.send("Opponent couldn't be found");
 });
 
-app.put('/attack', (req,res)=>{
-    var attackPoint = req.attackPoint;
-    
-    // var playerName = req.playerName;
-    // var shipPosition = req.shipPosition
-    // var shipType = req.shipType;
-})
+app.get('/isMyTurn', (req,res)=>{
+    var playerName = req.query.playerName;
+    for(var player in peopleinGame){
+        if(playerName == peopleinGame[player].playerName){
+            res.send(peopleinGame[player]);
+        }
+    }
+    res.send("Player couldn't be found");
+});
 
-// Position params will be taken as an x and y and the ship
+app.get('/theirTurn', (req,res)=>{
+    var playerName = req.query.playerName;
+    for(var player in peopleinGame){
+        if(playerName != peopleinGame[player].playerName){
+            res.send(peopleinGame[player]);
+        }
+    }
+});
+
+app.get('/getMyBoard', (req,res)=>{
+    var myName = req.query.playerName;
+    for(var player in peopleinGame){
+        if(myName == peopleinGame[player].playerName){
+            res.send(peopleinGame[player]);
+        }
+    }
+});
+
+app.post('/deadShip', (req,res)=>{
+    /**If a players ship has been killed then that ships coords no longer matter */
+    
+});
+
+
 app.post('/createGame', (req,res) =>{
-    // var playerName = req.query.playerName;
-    var playerBoard = req.query.playerBoard;
-    res.send(playerBoard);
-    // var data = req.params;
-    // var playerName = data.playerName;
-    // var ship = data.battleShip;
-    // var shipPositionX = data.shipPositionX;
-    // var shipPositionY = data.shipPositionY;
+    peopleinGame.push({
+        'playerName': req.query.playerName,
+        'carrier': req.query.destroyer,
+        'battleship': req.query.battleship,
+        'cruiser': req.query.cruiser,
+        'submarine': req.query.submarine,
+        'destroyer': req.query.destroyer,
+        'isPlayerTurn': globalIsPlayerTurn
+    });
+    globalIsPlayerTurn = false;
+    res.send(req.query.playerName + '  game has been created.');
 });
 
 

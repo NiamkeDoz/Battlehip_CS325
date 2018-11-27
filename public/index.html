@@ -6,12 +6,12 @@
     <title>BattleShip</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/TaylorIndex.css">
-    <!-- <script src="../js/site.js"></script> -->
-    <script src="../js/TaylorHitList.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    
+    <script src="../js/taylor.js"></script>
 </head>
-    <body>
-        
+    <body id = "bck">
+        <h1 id = title>BattleShip</h1>
         <div id = "tableP">
             <table>
                 <tr>
@@ -161,8 +161,29 @@
                     <td id = "I10"></td>
                     <td id = "J10"></td>
                 </tr>
-
             </table>
+            <div id = "boardPieces">
+                <p>Please enter your battleship locations.</p>
+                    Carrier (Five Spots): 
+                    <input id = "carrier" type="text" placeholder="location" ><br>
+                    
+                    Battleship (Four Spots): 
+                    <input id = "battleship" type="text" placeholder="location" ><br>
+
+                    Cruiser (Three Spots): 
+                    <input id = "cruiser" type="text" placeholder="location" ><br>
+                    
+                    Submarine (Three Spots): 
+                    <input id = "submarine" type="text" placeholder="location" ><br>
+                
+                    Destroyer (Two Spots):
+                    <input id = "destroyer" type="text" placeholder="location" ><br>
+                    <input type="submit" name="submit" onclick="onSubmit()" id="submitBtn">
+            </div>
+        </div>
+        <div id = playerInput>
+            <input id = "player" type ="text" placeholder="Player Shot">
+            <button id = "playerShot" type="button" onclick="fire()">Fire</button>
         </div>
         <div id = "tableOp">
             <table>
@@ -313,24 +334,21 @@
                     <td id = "I10"></td>
                     <td id = "J10"></td>
                 </tr>
-
             </table>
         </div>
 
         <div>
-            
-            <title>List of Offensive Attacks</title>
-            <input id="input" type="text">
-            <button id="inputButton" type="button" onclick="createList()">Enter</buutton>
-        </div>
-        <div>
             <p>Past Attacks</p>
         </div>
-        <div id = listArea>
-            
-            <p></p>
+        <div>
+            <p id="listArea"></p>
         </div>
            
         
+    <div>
+    </div>
+    <script src="./js/scooter.js"></script>
+    <script src="../js/emmett.js"></script>
+    <script src="../js/taylor.js"></script>
     </body>
 </html> 
