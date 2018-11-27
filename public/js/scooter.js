@@ -10,7 +10,6 @@ var cruShip     = [];
 var subShip     = [];
 var desShip     = [];
 var gameBoard   = [];
-
 var numOfShips  = 5;
 var sunkenShips = 0;
 var isGameOver  = false;
@@ -25,6 +24,7 @@ function onSubmit(){
     var cruiser     = document.getElementById("cruiser").value;
     var submarine   = document.getElementById("submarine").value;
     var destroyer   = document.getElementById("destroyer").value;
+    var playerName  = document.getElementById("playerName").value;
     var hide        = document.getElementById("boardPieces");
     hide.style.display = "none";
     drawShips(carrier, carShip);
@@ -69,6 +69,6 @@ function gameStatusCheck(){
 
 function fire(){
     var playerShot = document.getElementById("player").value;
-    playerShot.toString().charAt(0).toUpperCase();
+    //playerShot.toString().charAt(0).toUpperCase();
     document.getElementById(playerShot).style.backgroundColor = "red";
 }

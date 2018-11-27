@@ -162,20 +162,23 @@
             </table>
             <div id = "boardPieces">
                 <p>Please enter your battleship locations.</p>
+                    Player name
+                    <input id = "playerName" type="text" placeholder="Player Name" ><br>
+
                     Carrier (Five Spots): 
                     <input id = "carrier" type="text" value="A1,A2,A3,A4,A5" ><br>
                     
                     Battleship (Four Spots): 
-                    <input id = "battleship" type="text" placeholder="location" ><br>
+                    <input id = "battleship" type="text" value="D10,E10,F10,G10" ><br>
 
                     Cruiser (Three Spots): 
-                    <input id = "cruiser" type="text" placeholder="location" ><br>
+                    <input id = "cruiser" type="text" value="H1,I1,J1" ><br>
                     
                     Submarine (Three Spots): 
-                    <input id = "submarine" type="text" placeholder="location" ><br>
+                    <input id = "submarine" type="text" value="E1,E2,E3" ><br>
                 
                     Destroyer (Two Spots):
-                    <input id = "destroyer" type="text" placeholder="location" ><br>
+                    <input id = "destroyer" type="text" value="F7,G7,H7" ><br>
                     <input type="submit" name="submit" onclick="onSubmit()" id="submitBtn">
             </div>
         </div>
