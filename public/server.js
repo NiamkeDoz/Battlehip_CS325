@@ -1,6 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 const app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -9,6 +11,25 @@ app.setMaxListeners(2);
 //Global Variable to set first oppenent to create game to attack first
 var globalIsPlayerTurn = true;
 
+io.on('connect', function(client){
+    console.log('Client connected...');
+    client.on('join', (data)=>{
+        console.log(data);
+    });
+
+    client.on('fire',(coordinates)=>{
+        client.broadcast.emit('fire',{
+            message: coordinates
+        })
+        // console.log(coordinates);
+    });
+});
+
+// io.on('fire', (coordinates) =>{
+//     socket.boradcast.emit('fire', {
+//         message: 'coordinates'
+//     });
+// });
 //This will be our in memory data storage
 peopleinGame = [];
 
@@ -27,7 +48,23 @@ peopleinGame.push(testPlayerData);
 app.get('/', (req,res) => {
     res.sendFile("index.html");
 });
-  
+
+app.post('/create_board_state', (req,res)=>{
+
+    peopleinGame.push({
+        'playerName': req.query.playerName,
+        'carrier': req.query.destroyer,
+        'battleship': req.query.battleship,
+        'cruiser': req.query.cruiser,
+        'submarine': req.query.submarine,
+        'destroyer': req.query.destroyer,
+        'isPlayerTurn': globalIsPlayerTurn
+    });
+
+    globalIsPlayerTurn = false;
+    res.redirect('/html/board.html');
+});
+
 app.put('/attack', (req,res)=>{
     var opponentToAttack = req.query.opponentToAttack;
     var attackPoint = req.query.attackPoint;
@@ -59,6 +96,7 @@ app.put('/attack', (req,res)=>{
     res.send("Opponent couldn't be found");
 });
 
+
 app.get('/isMyTurn', (req,res)=>{
     var playerName = req.query.playerName;
     for(var player in peopleinGame){
@@ -89,24 +127,14 @@ app.get('/getMyBoard', (req,res)=>{
 
 app.post('/deadShip', (req,res)=>{
     /**If a players ship has been killed then that ships coords no longer matter */
+    var playerName = req.query.playerName;
+    var deadShip = req.query.deadShip;
+    for(player in peopleinGame){
+        
+    }
     
 });
 
 
-app.post('/createGame', (req,res) =>{
-    peopleinGame.push({
-        'playerName': req.query.playerName,
-        'carrier': req.query.destroyer,
-        'battleship': req.query.battleship,
-        'cruiser': req.query.cruiser,
-        'submarine': req.query.submarine,
-        'destroyer': req.query.destroyer,
-        'isPlayerTurn': globalIsPlayerTurn
-    });
-    globalIsPlayerTurn = false;
-    res.send(req.query.playerName + '  game has been created.');
-});
-
-
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log("Listening port 3000"));
+server.listen(port, () => console.log("Listening port 3000"));
