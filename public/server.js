@@ -11,6 +11,7 @@ app.setMaxListeners(2);
 //Global Variable to set first oppenent to create game to attack first
 var globalIsPlayerTurn = true;
 
+//Handles the events submitted by the client
 io.on('connect', function(client){
     console.log('Client connected...');
     client.on('join', (data)=>{
@@ -21,15 +22,9 @@ io.on('connect', function(client){
         client.broadcast.emit('fire',{
             message: coordinates
         })
-        // console.log(coordinates);
     });
 });
 
-// io.on('fire', (coordinates) =>{
-//     socket.boradcast.emit('fire', {
-//         message: 'coordinates'
-//     });
-// });
 //This will be our in memory data storage
 peopleinGame = [];
 
