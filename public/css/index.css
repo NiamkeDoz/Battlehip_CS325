@@ -96,3 +96,11 @@ table td{
     font-weight: bold;
     font-size: 1em;
 }
+
+#playerName {
+    margin-top: 20px;
+}
+
+input{
+    margin-bottom: 10px;
+}

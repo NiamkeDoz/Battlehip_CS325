@@ -1,60 +1,135 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 const app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
+app.setMaxListeners(2);
+//Global Variable to set first oppenent to create game to attack first
+var globalIsPlayerTurn = true;
 
+//Handles the events submitted by the client
+io.on('connect', function(client){
+    console.log('Client connected...');
+    client.on('join', (data)=>{
+        console.log(data);
+    });
 
+    client.on('fire',(coordinates)=>{
+        client.broadcast.emit('fire',{
+            message: coordinates
+        })
+    });
+});
+
+//This will be our in memory data storage
 peopleinGame = [];
 
-//we will use this because it has a predetermined values
-testAgainsPlayer = {'playerName':'John', 'playerBoard': ['A3', 'B4']};
-peopleinGame.push(testAgainsPlayer);
+//For testing purposes delete when we submit
+testPlayerData = {
+    'playerName': 'testPlayer',
+    'carrier': ['A1', 'A2','A3','A4','A5'], //5
+    'battleship': ['B1', 'B2', 'B3', 'B4'], //4
+    'cruiser': ['C1','C2','C3'], //3print(__version__)
+    'submarine': ['D1','D2','D3'], //3
+    'destroyer': ['E1','E2'] //2
+}
+peopleinGame.push(testPlayerData);
+//END of testing purposes
 
 app.get('/', (req,res) => {
     res.sendFile("index.html");
 });
 
-app.post('/createGame', (req,res)=>{
-    var playerName = req.query.playerName;
-    var playerBoard = req.query.playerBoard;
-    res.send('player ' + playerName + 'has been created');
-})
+app.post('/create_board_state', (req,res)=>{
 
-app.get('/attack', (req,res)=>{
+    peopleinGame.push({
+        'playerName': req.query.playerName,
+        'carrier': req.query.destroyer,
+        'battleship': req.query.battleship,
+        'cruiser': req.query.cruiser,
+        'submarine': req.query.submarine,
+        'destroyer': req.query.destroyer,
+        'isPlayerTurn': globalIsPlayerTurn
+    });
 
+    globalIsPlayerTurn = false;
+    res.redirect('/html/board.html');
+});
+
+app.put('/attack', (req,res)=>{
+    var opponentToAttack = req.query.opponentToAttack;
     var attackPoint = req.query.attackPoint;
-    var attackingPlayer = req.query.attackingPlayer;
-
-        //at each index there is a person object so we must itterate thorugh each one
     for(var player in peopleinGame){
-        //make sure we aren't attacking ourselves
-        if (attackingPlayer != peopleinGame[player].playerName){
-            if(peopleinGame[player].playerBoard.includes(attackPoint)){
+        //disable the player ability who attacked to attack again
+        if(opponentToAttack != peopleinGame[player].playerName){
+            peopleinGame[player].isPlayerTurn = false;
+        }
+        if(opponentToAttack == peopleinGame[player].playerName){
+            console.log(opponentToAttack);
+            //enable the player that was just attacked to true
+            peopleinGame[player].isPlayerTurn = true;
+            if(peopleinGame[player].carrier.includes(attackPoint)){
+                console.log("Carrier should have the attack point")
                 res.send(true);
-            }else{
-                res.send(false);
+            }
+            else if (peopleinGame[player].battleship.includes(attackPoint)){
+                res.send(true);
+            }
+            else if(peopleinGame[player].cruiser.includes(attackPoint)){
+                res.send(true);
+            } else if(peopleinGame[player].submarine.includes(attackPoint)){
+                res.send(true);
+            } else if(peopleinGame[player].destroyer.includes(attackPoint)){
+                res.send(true);
             }
         }
-        // res.send(peopleinGame[player].playerName);
     }
-    res.send("Don't send your name, send the opponents!");
-})
+    res.send("Opponent couldn't be found");
+});
+
+
+app.get('/isMyTurn', (req,res)=>{
+    var playerName = req.query.playerName;
+    for(var player in peopleinGame){
+        if(playerName == peopleinGame[player].playerName){
+            res.send(peopleinGame[player]);
+        }
+    }
+    res.send("Player couldn't be found");
+});
+
+app.get('/theirTurn', (req,res)=>{
+    var playerName = req.query.playerName;
+    for(var player in peopleinGame){
+        if(playerName != peopleinGame[player].playerName){
+            res.send(peopleinGame[player]);
+        }
+    }
+});
+
+app.get('/getMyBoard', (req,res)=>{
+    var myName = req.query.playerName;
+    for(var player in peopleinGame){
+        if(myName == peopleinGame[player].playerName){
+            res.send(peopleinGame[player]);
+        }
+    }
+});
 
 app.post('/deadShip', (req,res)=>{
     /**If a players ship has been killed then that ships coords no longer matter */
-})
-
-
-app.post('/createGame', (req,res) =>{
-    peopleinGame.push({
-        'playerName': req.query.playerName,
-        'playerBoard': req.query.playerBoard
-    })
+    var playerName = req.query.playerName;
+    var deadShip = req.query.deadShip;
+    for(player in peopleinGame){
+        
+    }
+    
 });
 
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log("Listening port 3000"));
+server.listen(port, () => console.log("Listening port 3000"));
