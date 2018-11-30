@@ -21,7 +21,13 @@ io.on('connect', function(client){
     client.on('fire',(coordinates)=>{
         client.broadcast.emit('fire',{
             message: coordinates
-        })
+        });
+    });
+
+    client.on('go',(data)=>{
+        client.broadcast.emit('go',{
+            message: data.message
+        });
     });
 });
 
@@ -45,18 +51,20 @@ app.get('/', (req,res) => {
 });
 
 app.post('/create_board_state', (req,res)=>{
-
     peopleinGame.push({
-        'playerName': req.query.playerName,
-        'carrier': req.query.destroyer,
-        'battleship': req.query.battleship,
-        'cruiser': req.query.cruiser,
-        'submarine': req.query.submarine,
-        'destroyer': req.query.destroyer,
+        'playerName': req.body.playerName,
+        'carrier': req.body.destroyer.split(','),
+        'battleship': req.body.battleship.split(','),
+        'cruiser': req.body.cruiser.split(','),
+        'submarine': req.body.submarine.split(','),
+        'destroyer': req.body.destroyer.split(','),
         'isPlayerTurn': globalIsPlayerTurn
     });
 
     globalIsPlayerTurn = false;
+    //Development!
+    console.log(peopleinGame);
+    //Delete before production
     res.redirect('/html/board.html');
 });
 

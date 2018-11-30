@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Create User Name</title>
+    <title>Create Board</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="./css/index.css" />
 </head>
@@ -161,7 +161,7 @@
             </tr>
         </table>
         <!-- event.preventDefault(); place this inside the onsubmit if you want to test functions -->
-        <form id="createUserBoard" onsubmit= "validateForm();"  action="/create_board_state"  method="POST">
+        <form id="createUserBoard" action="/create_board_state"  method="POST">
             <input type="text" name="playerName" id="playerName" placeholder="UserName" required>
             <input type="text" name="carrier" id="carrier-input" placeholder="Carrier" required>
             <input type="text" name="battleship" id="battleship-input" placeholder="BattleShip" required>
