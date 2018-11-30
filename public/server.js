@@ -31,6 +31,12 @@ peopleinGame.push(testPlayerData);
 //Handles the events submitted by the client
 io.on('connect', function(client){
     console.log('Client connected...');
+    client.on('connect', ()=>{
+        client.emit('connect',{
+            message: 'hello'
+        })
+    })
+
     client.on('join', (data)=>{
         console.log(data);
     });
