@@ -61,8 +61,6 @@ table td{
     height: 50px;
 }
 
-
-
 #playerInput{
     display: block;
     width: 50%;
@@ -89,4 +87,12 @@ table td{
     background-color: red;
     font-weight: bold;
     font-size: 1em;
+}
+
+#playerName {
+    margin-top: 20px;
+}
+
+input{
+    margin-bottom: 10px;
 }

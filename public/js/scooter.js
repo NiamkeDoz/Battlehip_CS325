@@ -48,6 +48,7 @@ function drawShips(ship, storedship){
 
 
 function fire(){
+    
     var playerShot = document.getElementById("player").value;
     playerShot.toString().charAt(0).toUpperCase();
     document.getElementById(playerShot).style.backgroundColor = "red";
