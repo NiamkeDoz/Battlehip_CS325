@@ -8,28 +8,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.setMaxListeners(2);
+
 //Global Variable to set first oppenent to create game to attack first
 var globalIsPlayerTurn = true;
-
-//Handles the events submitted by the client
-io.on('connect', function(client){
-    console.log('Client connected...');
-    client.on('join', (data)=>{
-        console.log(data);
-    });
-
-    client.on('fire',(coordinates)=>{
-        client.broadcast.emit('fire',{
-            message: coordinates
-        });
-    });
-
-    client.on('go',(data)=>{
-        client.broadcast.emit('go',{
-            message: data.message
-        });
-    });
-});
 
 //This will be our in memory data storage
 peopleinGame = [];
@@ -46,6 +27,59 @@ testPlayerData = {
 peopleinGame.push(testPlayerData);
 //END of testing purposes
 
+
+//Handles the events submitted by the client
+io.on('connect', function(client){
+    console.log('Client connected...');
+    client.on('join', (data)=>{
+        console.log(data);
+    });
+
+    client.on('fire',(shootData)=>{
+        client.broadcast.emit('fire',{
+            message: shootData,
+            hit: isTargetHit(shootData)
+        });
+    });
+});
+
+//IO Functions
+function isTargetHit(shootData){
+    console.log(shootData.message.coordinates);
+
+    const target = shootData.message.playerName;
+    const coords = shootData.message.coordinates;
+    var result = false;
+
+    for(var player in peopleinGame){
+        if(target != peopleinGame[player].playerName){
+            peopleinGame[player].isPlayerTurn = false;
+        }
+        if(target == peopleinGame[player].playerName){
+            //enable the player that was just attacked to true
+            peopleinGame[player].isPlayerTurn = true;
+            if(peopleinGame[player].carrier.includes(coords)){
+                result = true;
+            }
+            else if (peopleinGame[player].battleship.includes(coords)){
+                result = true;
+            }
+            else if(peopleinGame[player].cruiser.includes(coords)){
+                result = true;
+            } else if(peopleinGame[player].submarine.includes(coords)){
+                result = true;
+            } else if(peopleinGame[player].destroyer.includes(coords)){
+                result = true;
+            }
+        }      
+    }
+    return result;
+}
+//End IO Functions
+
+//Express Routes
+
+//End Express Routes
 app.get('/', (req,res) => {
     res.sendFile("index.html");
 });
@@ -62,42 +96,9 @@ app.post('/create_board_state', (req,res)=>{
     });
 
     globalIsPlayerTurn = false;
-    //Development!
-    console.log(peopleinGame);
-    //Delete before production
+
     res.redirect('/html/board.html');
 });
-
-app.put('/attack', (req,res)=>{
-    var opponentToAttack = req.query.opponentToAttack;
-    var attackPoint = req.query.attackPoint;
-    for(var player in peopleinGame){
-        //disable the player ability who attacked to attack again
-        if(opponentToAttack != peopleinGame[player].playerName){
-            peopleinGame[player].isPlayerTurn = false;
-        }
-        if(opponentToAttack == peopleinGame[player].playerName){
-            console.log(opponentToAttack);
-            //enable the player that was just attacked to true
-            peopleinGame[player].isPlayerTurn = true;
-            if(peopleinGame[player].carrier.includes(attackPoint)){
-                res.send(true);
-            }
-            else if (peopleinGame[player].battleship.includes(attackPoint)){
-                res.send(true);
-            }
-            else if(peopleinGame[player].cruiser.includes(attackPoint)){
-                res.send(true);
-            } else if(peopleinGame[player].submarine.includes(attackPoint)){
-                res.send(true);
-            } else if(peopleinGame[player].destroyer.includes(attackPoint)){
-                res.send(true);
-            }
-        }
-    }
-    res.send("Opponent couldn't be found");
-});
-
 
 app.get('/getMyBoard', (req,res)=>{
     var myName = req.query.playerName;
