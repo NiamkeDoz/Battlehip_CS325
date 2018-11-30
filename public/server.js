@@ -99,25 +99,6 @@ app.put('/attack', (req,res)=>{
 });
 
 
-app.get('/isMyTurn', (req,res)=>{
-    var playerName = req.query.playerName;
-    for(var player in peopleinGame){
-        if(playerName == peopleinGame[player].playerName){
-            res.send(peopleinGame[player]);
-        }
-    }
-    res.send("Player couldn't be found");
-});
-
-app.get('/theirTurn', (req,res)=>{
-    var playerName = req.query.playerName;
-    for(var player in peopleinGame){
-        if(playerName != peopleinGame[player].playerName){
-            res.send(peopleinGame[player]);
-        }
-    }
-});
-
 app.get('/getMyBoard', (req,res)=>{
     var myName = req.query.playerName;
     for(var player in peopleinGame){
@@ -125,16 +106,6 @@ app.get('/getMyBoard', (req,res)=>{
             res.send(peopleinGame[player]);
         }
     }
-});
-
-app.post('/deadShip', (req,res)=>{
-    /**If a players ship has been killed then that ships coords no longer matter */
-    var playerName = req.query.playerName;
-    var deadShip = req.query.deadShip;
-    for(player in peopleinGame){
-        
-    }
-    
 });
 
 
