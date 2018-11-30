@@ -81,7 +81,6 @@ app.put('/attack', (req,res)=>{
             //enable the player that was just attacked to true
             peopleinGame[player].isPlayerTurn = true;
             if(peopleinGame[player].carrier.includes(attackPoint)){
-                console.log("Carrier should have the attack point")
                 res.send(true);
             }
             else if (peopleinGame[player].battleship.includes(attackPoint)){
@@ -140,4 +139,4 @@ app.post('/deadShip', (req,res)=>{
 
 
 const port = process.env.PORT || 3000;
-server.listen(port, () => console.log("Listening port 3000"));
+server.listen(port, () => console.log(`Listening port ${port}`));
