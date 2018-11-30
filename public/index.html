@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <h1>Create Your Board</h1>
     <div id="tableP">
         <table>
             <tr>
@@ -161,7 +162,7 @@
             </tr>
         </table>
         <!-- event.preventDefault(); place this inside the onsubmit if you want to test functions -->
-        <form id="createUserBoard" action="/create_board_state"  method="POST">
+        <form name="createUserBoard" onsubmit= "cacheData();" action="/create_board_state"  method="POST">
             <input type="text" name="playerName" id="playerName" placeholder="UserName" required>
             <input type="text" name="carrier" id="carrier-input" placeholder="Carrier" required>
             <input type="text" name="battleship" id="battleship-input" placeholder="BattleShip" required>
@@ -170,6 +171,7 @@
             <input type="text" name="destroyer" id="destryoer-input" placeholder="Destroyer" required>
             <button type="submit">Submit</button>
         </form>
+        <script src="js/board_events.js"></script>
 </body>
 
 </html>

@@ -1,8 +1,24 @@
 var firebutton = document.getElementById('playerShot');
 var coords = document.getElementById('player');
 
+var createdBoard = {}
 var socket = io();
 
+function cacheData(){
+    //This data is from the index.html and will be used to build the board for board.html
+    //we'll append each key value to the createdBoard object
+    createdBoard["playerName"] = document.forms["createUserBoard"]["playerName"].value;
+    createdBoard["carrier"] = document.forms["createUserBoard"]["carrier"].value;
+    createdBoard["battleship"] = document.forms["createUserBoard"]["battleship"].value;
+    createdBoard["cruiser"] = document.forms["createUserBoard"]["cruiser"].value;
+    createdBoard["submarine"]= document.forms["createUserBoard"]["submarine"].value;
+    createdBoard["destroyer"]= document.forms["createUserBoard"]["destroyer"].value;
+    //Now we can build our board when the connection event happens
+}
+
+socket.on('connect', (data)=>{
+    alert('I have connected!');
+})
 
 firebutton.addEventListener('click', ()=>{
     const buildMessage = {
