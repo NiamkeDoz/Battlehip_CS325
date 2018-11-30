@@ -100,15 +100,5 @@ app.post('/create_board_state', (req,res)=>{
     res.redirect('/html/board.html');
 });
 
-app.get('/getMyBoard', (req,res)=>{
-    var myName = req.query.playerName;
-    for(var player in peopleinGame){
-        if(myName == peopleinGame[player].playerName){
-            res.send(peopleinGame[player]);
-        }
-    }
-});
-
-
 const port = process.env.PORT || 3000;
 server.listen(port, () => console.log(`Listening port ${port}`));
