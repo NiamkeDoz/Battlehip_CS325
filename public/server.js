@@ -8,22 +8,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.setMaxListeners(2);
+
 //Global Variable to set first oppenent to create game to attack first
 var globalIsPlayerTurn = true;
-
-//Handles the events submitted by the client
-io.on('connect', function(client){
-    console.log('Client connected...');
-    client.on('join', (data)=>{
-        console.log(data);
-    });
-
-    client.on('fire',(coordinates)=>{
-        client.broadcast.emit('fire',{
-            message: coordinates
-        })
-    });
-});
 
 //This will be our in memory data storage
 peopleinGame = [];
@@ -40,96 +27,84 @@ testPlayerData = {
 peopleinGame.push(testPlayerData);
 //END of testing purposes
 
+
+//Handles the events submitted by the client
+io.on('connect', function(client){
+    console.log('Client connected...');
+    client.on('connect', ()=>{
+        client.emit('connect',{
+            message: 'hello'
+        })
+    })
+
+    client.on('join', (data)=>{
+        console.log(data);
+    });
+
+    client.on('fire',(shootData)=>{
+        client.broadcast.emit('fire',{
+            message: shootData,
+            hit: isTargetHit(shootData)
+        });
+    });
+});
+
+//IO Functions
+function isTargetHit(shootData){
+    console.log(shootData.message.coordinates);
+
+    const target = shootData.message.playerName;
+    const coords = shootData.message.coordinates;
+    var result = false;
+
+    for(var player in peopleinGame){
+        if(target != peopleinGame[player].playerName){
+            peopleinGame[player].isPlayerTurn = false;
+        }
+        if(target == peopleinGame[player].playerName){
+            //enable the player that was just attacked to true
+            peopleinGame[player].isPlayerTurn = true;
+            if(peopleinGame[player].carrier.includes(coords)){
+                result = true;
+            }
+            else if (peopleinGame[player].battleship.includes(coords)){
+                result = true;
+            }
+            else if(peopleinGame[player].cruiser.includes(coords)){
+                result = true;
+            } else if(peopleinGame[player].submarine.includes(coords)){
+                result = true;
+            } else if(peopleinGame[player].destroyer.includes(coords)){
+                result = true;
+            }
+        }      
+    }
+    return result;
+}
+//End IO Functions
+
+//Express Routes
+
+//End Express Routes
 app.get('/', (req,res) => {
     res.sendFile("index.html");
 });
 
 app.post('/create_board_state', (req,res)=>{
-
     peopleinGame.push({
-        'playerName': req.query.playerName,
-        'carrier': req.query.destroyer,
-        'battleship': req.query.battleship,
-        'cruiser': req.query.cruiser,
-        'submarine': req.query.submarine,
-        'destroyer': req.query.destroyer,
+        'playerName': req.body.playerName,
+        'carrier': req.body.destroyer.split(','),
+        'battleship': req.body.battleship.split(','),
+        'cruiser': req.body.cruiser.split(','),
+        'submarine': req.body.submarine.split(','),
+        'destroyer': req.body.destroyer.split(','),
         'isPlayerTurn': globalIsPlayerTurn
     });
 
     globalIsPlayerTurn = false;
+
     res.redirect('/html/board.html');
 });
 
-app.put('/attack', (req,res)=>{
-    var opponentToAttack = req.query.opponentToAttack;
-    var attackPoint = req.query.attackPoint;
-    for(var player in peopleinGame){
-        //disable the player ability who attacked to attack again
-        if(opponentToAttack != peopleinGame[player].playerName){
-            peopleinGame[player].isPlayerTurn = false;
-        }
-        if(opponentToAttack == peopleinGame[player].playerName){
-            console.log(opponentToAttack);
-            //enable the player that was just attacked to true
-            peopleinGame[player].isPlayerTurn = true;
-            if(peopleinGame[player].carrier.includes(attackPoint)){
-                console.log("Carrier should have the attack point")
-                res.send(true);
-            }
-            else if (peopleinGame[player].battleship.includes(attackPoint)){
-                res.send(true);
-            }
-            else if(peopleinGame[player].cruiser.includes(attackPoint)){
-                res.send(true);
-            } else if(peopleinGame[player].submarine.includes(attackPoint)){
-                res.send(true);
-            } else if(peopleinGame[player].destroyer.includes(attackPoint)){
-                res.send(true);
-            }
-        }
-    }
-    res.send("Opponent couldn't be found");
-});
-
-
-app.get('/isMyTurn', (req,res)=>{
-    var playerName = req.query.playerName;
-    for(var player in peopleinGame){
-        if(playerName == peopleinGame[player].playerName){
-            res.send(peopleinGame[player]);
-        }
-    }
-    res.send("Player couldn't be found");
-});
-
-app.get('/theirTurn', (req,res)=>{
-    var playerName = req.query.playerName;
-    for(var player in peopleinGame){
-        if(playerName != peopleinGame[player].playerName){
-            res.send(peopleinGame[player]);
-        }
-    }
-});
-
-app.get('/getMyBoard', (req,res)=>{
-    var myName = req.query.playerName;
-    for(var player in peopleinGame){
-        if(myName == peopleinGame[player].playerName){
-            res.send(peopleinGame[player]);
-        }
-    }
-});
-
-app.post('/deadShip', (req,res)=>{
-    /**If a players ship has been killed then that ships coords no longer matter */
-    var playerName = req.query.playerName;
-    var deadShip = req.query.deadShip;
-    for(player in peopleinGame){
-        
-    }
-    
-});
-
-
 const port = process.env.PORT || 3000;
-server.listen(port, () => console.log("Listening port 3000"));
+server.listen(port, () => console.log(`Listening port ${port}`));

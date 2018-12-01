@@ -161,24 +161,6 @@
                 <td id="J10"></td>
             </tr>
         </table>
-        <div id="boardPieces">
-            <p>Please enter your battleship locations.</p>
-            Carrier (Five Spots):
-            <input id="carrier" type="text" placeholder="location"><br>
-
-            Battleship (Four Spots):
-            <input id="battleship" type="text" placeholder="location"><br>
-
-            Cruiser (Three Spots):
-            <input id="cruiser" type="text" placeholder="location"><br>
-
-            Submarine (Three Spots):
-            <input id="submarine" type="text" placeholder="location"><br>
-
-            Destroyer (Two Spots):
-            <input id="destroyer" type="text" placeholder="location"><br>
-            <input type="submit" name="submit" onclick="onSubmit()" id="submitBtn">
-        </div>
     </div>
     <div id=playerInput>
         <input id="player" type="text" placeholder="Player Shot">
@@ -339,7 +321,6 @@
     </div>
 
     <!-- Our socket events will be here  -->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="../js/scooter.js"></script>
     <script src="../js/board_events.js"></script>
