@@ -11,10 +11,8 @@ app.setMaxListeners(2);
 
 //Global Variable
 var globalIsPlayerTurn = true;
-var globalLastPlayerToJoin = "";
 const PLAYER_WINS = 0;
-//This will be our in memory data storage
-peopleinGame = [];
+peopleinGame = [];      //This will be our in memory data storage
 //End Global Variables
 
 //For testing purposes delete when we submit
@@ -35,10 +33,10 @@ peopleinGame.push(testPlayerData);
 io.on('connect', function(client){
     console.log('Client connected...');
     client.on('connect', ()=>{
-        client.emit('connect',{
-            message: 'hello '
-        })
-    })
+        // client.emit('connect',{
+        //     message: 'hello '
+        // });
+    });
 
     client.on('join', (data)=>{
         console.log(data);
@@ -60,16 +58,12 @@ io.on('connect', function(client){
 
 //IO Functions
 function isTargetHit(shootData){
-
-    const target = shootData.message.playerName;
-    const coords = shootData.message.coordinates;
+    const target = shootData.playerName;
+    const coords = shootData.coordinates;
     var result = false;
 
     for(var player in peopleinGame){
         if(target != peopleinGame[player].playerName){
-            peopleinGame[player].isPlayerTurn = false;
-        }
-        if(target == peopleinGame[player].playerName){
             //enable the player that was just attacked to true
             peopleinGame[player].isPlayerTurn = true;
             if(peopleinGame[player].carrier.includes(coords)){
@@ -99,7 +93,6 @@ function addPlayerWin(playerName){
 }
 
 function createPlayerBoardState(playerBoardData){
-    console.log(playerBoardData)
     peopleinGame.push({
         'playerName': playerBoardData.board.playerName,
         'carrier': playerBoardData.board.destroyer.split(','),
@@ -115,7 +108,6 @@ function createPlayerBoardState(playerBoardData){
 //End IO Functions
 
 //Express Routes
-
 app.get('/number_of_wins', (req,res)=>{
     for(var player in peopleinGame){
         if(req.query.playerName == peopleinGame[player].playerName){
