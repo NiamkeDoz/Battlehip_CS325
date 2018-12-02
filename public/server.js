@@ -54,14 +54,18 @@ io.on('connect', function(client){
         createPlayerBoardState(playerBoardData);
         client.emit('create_board_state',{});
     });
+
+    client.on('updateBoard', (hitData)=>{
+        client.broadcast.emit('updateBoard', {
+            data: hitData
+        })
+    });
 });
 
 //IO Functions
 function isTargetHit(shootData){
     const target = shootData.playerName;
     const coords = shootData.coordiantes;
-    console.log("target name" + target);
-    console.log("coordinates" + coords);
     var result = false;
 
     for(var player in peopleinGame){
@@ -120,6 +124,10 @@ app.get('/number_of_wins', (req,res)=>{
 });
 //End Express Routes
 
+
+app.get('/number_of_wins', (req,res)=>{
+    res.send('hello');
+});
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => console.log(`Listening port ${port}`));

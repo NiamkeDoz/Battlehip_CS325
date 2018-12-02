@@ -22,6 +22,9 @@ var globalHitSpots = [];
 //the first person to have their shots at 0 lose
 var totalShipSpots = 17;
 
+//these will be used to translate the values from A-J to L-T
+const translateCoords = {'K': 'A', 'L': 'B', 'M': 'C', 'N': 'D', 'O': 'E', 'P': 'F', 'Q': 'G', 'R': 'H', 'S': 'I', 'T': 'J' }
+
 firebutton.addEventListener('click', ()=>{
     socket.emit('fire',{
         //Will send to the server
@@ -91,10 +94,42 @@ function checkIfHit(data){
 }
 
 function notfiyPlayer(data){
-    // socket.emit("notifyPlayer", {
-
-    // });
+    var translatedValue = beginTranslation(data.message.coordiantes.toUpperCase());
+ 
+    socket.emit("updateBoard", {
+        coord: translatedValue,
+        hit: data.hit
+    });
 }
+
+socket.on("updateBoard", (data)=>{
+    console.log(data);
+    var x = data.data.coord.toUpperCase();
+    var coordinateMarker = document.getElementById(x);
+
+    if(Boolean(data.data.hit)){
+        //First we update the attacked player that they have been hit by taking away one from their totalShipSpots
+        //Next we need to update our board with where the hit was at
+        coordinateMarker.style.backgroundColor = "green";
+        //Finally we notify the attacking player that their attack has succeeded
+    }
+    else{
+        coordinateMarker.style.backgroundColor = "black";
+        //We still must notify the opponent so they can update their board
+    }  
+})
+
+
+function beginTranslation(coord){
+    concatedAnswer = getKeyByValue(translateCoords,coord.slice(0,1));
+    concatedAnswer += coord.replace( /^\D+/g, '');
+    return concatedAnswer;
+}
+
+//Function from https://stackoverflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+  }
 
 function drawShips(ship, storedship){
     //generates a random color for battleships.
