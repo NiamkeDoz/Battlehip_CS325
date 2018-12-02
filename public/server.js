@@ -121,6 +121,7 @@ app.get('/number_of_wins', (req,res)=>{
             res.send(peopleinGame[player].numberOfWins);
         }
     }
+    res.send('player not found')
 });
 //End Express Routes
 

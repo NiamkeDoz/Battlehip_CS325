@@ -1,6 +1,6 @@
 var firebutton  = document.getElementById('playerShot');
 var coords      = document.getElementById('player');
-var shot        = document.getElementById('player').value;
+var shot        = document.getElementById('player');
 var player1     = document.getElementById("tableP");
 var player2     = document.getElementById("tableOp"); 
 
