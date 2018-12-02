@@ -4,7 +4,14 @@ var shot        = document.getElementById('player');
 var player1     = document.getElementById("tableP");
 var player2     = document.getElementById("tableOp"); 
 
-
+//Stores the ships locations
+var carShip     = [];
+var batShip     = [];
+var cruShip     = [];
+var subShip     = [];
+var desShip     = [];
+//Colors to draw ships
+var shipColors  = ["blue","green","black","brown","pink","red","orange"];
 
 var createdBoard = {}
 var socket = io();
@@ -35,7 +42,12 @@ function emitBoardState(){
 //The server will be emiting a signal only to the person that has called it and not to everyone else
 //We don't emit to everyone because we would be remaking our board
 socket.on('create_board_state', ()=>{
-    alert('You should have implemented this function!');
+    //alert('You should have implemented this function!');
+    drawShips(createdBoard["carrier"],carShip);
+    drawShips(createdBoard["battleship"],batShip);
+    drawShips(createdBoard["cruiser"],cruShip);
+    drawShips(createdBoard["submarine"],subShip);
+    drawShips(createdBoard["destroyer"],desShip);
 });
 
 socket.on('connect', (data)=>{
