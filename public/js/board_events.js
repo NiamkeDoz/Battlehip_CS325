@@ -7,7 +7,7 @@ var coords      = document.getElementById('player');
 var shot        = document.getElementById('player');
 var player1     = document.getElementById("tableP");
 var player2     = document.getElementById("tableOp"); 
-
+var counter     = 0;
 //Stores the ships locations
 var carShip     = [];
 var batShip     = [];
@@ -15,7 +15,7 @@ var cruShip     = [];
 var subShip     = [];
 var desShip     = [];
 //Colors to draw ships
-var shipColors  = ["blue","green","black","brown","pink","red","orange"];
+var shipColors  = ["blue","#00ff21","#898989","#b200ff","pink","red","#ffae00"];
 
 var createdBoard = {}
 // var socket = io();
@@ -110,15 +110,17 @@ socket.on("updateBoard", (data)=>{
     console.log(data);
     var x = data.data.coord.toUpperCase();
     var coordinateMarker = document.getElementById(x);
-
+    document.getElementById("message").style.display = "inline";
     if(Boolean(data.data.hit)){
         //First we update the attacked player that they have been hit by taking away one from their totalShipSpots
         //Next we need to update our board with where the hit was at
         coordinateMarker.style.backgroundColor = "green";
+        document.getElementById("message").innerHTML = "HIT";
         //Finally we notify the attacking player that their attack has succeeded
     }
     else{
         coordinateMarker.style.backgroundColor = "black";
+        document.getElementById("message").innerHTML = "MISS";
         //We still must notify the opponent so they can update their board
     }  
 })
@@ -137,11 +139,12 @@ function getKeyByValue(object, value) {
 
 function drawShips(ship, storedship){
     //generates a random color for battleships.
-    var randomNum   = Math.floor(Math.random() * 7);
-    var color       = shipColors[randomNum];
+    //var randomNum   = Math.floor(Math.random() * 7);
+    var color       = shipColors[counter];
     var temp = ship.split(",");
     for(var i = 0; i < temp.length; i++){
         storedship.push(temp[i]);
         document.getElementById(temp[i]).style.backgroundColor = color;
     }
+    counter++;
 }

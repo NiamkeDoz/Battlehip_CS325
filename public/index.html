@@ -148,19 +148,85 @@
                     <td id = "J9"></td>
                 </tr>
 
-                <tr>
-                    <td>10</td>
-                    <td id = "A10"></td>
-                    <td id = "B10"></td>
-                    <td id = "C10"></td>
-                    <td id = "D10"></td>
-                    <td id = "E10"></td>
-                    <td id = "F10"></td>
-                    <td id = "G10"></td>
-                    <td id = "H10"></td>
-                    <td id = "I10"></td>
-                    <td id = "J10"></td>
-                </tr>
+            <tr>
+                <td>10</td>
+                <td id="A10"></td>
+                <td id="B10"></td>
+                <td id="C10"></td>
+                <td id="D10"></td>
+                <td id="E10"></td>
+                <td id="F10"></td>
+                <td id="G10"></td>
+                <td id="H10"></td>
+                <td id="I10"></td>
+                <td id="J10"></td>
+            </tr>
+        </table>
+    </div>
+    <div id="myModal" class="modal">
+    <div class="modal-content">
+        <h2>Create Your Board</h2>
+        <!--  action="/create_board_state"  method="POST" -->
+    <form name="createUserBoard" onsubmit= "event.preventDefault();  emitBoardState();">
+        <input value="User1" type="text" name="playerName" id="playerName" placeholder="UserName" required>
+        <input value="A1,A2,A3,A4,A5" type="text" name="carrier" id="carrier-input" placeholder="Carrier" required>
+        <input value="J1,J2,J3,J4" type="text" name="battleship" id="battleship-input" placeholder="BattleShip" required>
+        <input value="D3,D4,D5" type="text" name="cruiser" id="cruiser-input" placeholder="Cruiser" required>
+        <input value="F2,F3,F4" type="text" name="submarine" id="submarine-input" placeholder="Submarine" required>
+        <input value="E1,F1" type="text" name="destroyer" id="destryoer-input" placeholder="Destroyer" required>
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+    </div>
+    <div id=playerInput>
+        <input id="player" type="text" placeholder="Player Shot">
+        <button id="playerShot" type="button" >Fire</button>
+        <span id="message">N/A</span>
+    </div>
+    
+    
+
+    <div id="tableOp">
+        <table>
+            <tr>
+                <td></td>
+                <td>K</td>
+                <td>L</td>
+                <td>M</td>
+                <td>N</td>
+                <td>O</td>
+                <td>P</td>
+                <td>Q</td>
+                <td>R</td>
+                <td>S</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td id="K1"></td>
+                <td id="L1"></td>
+                <td id="M1"></td>
+                <td id="N1"></td>
+                <td id="O1"></td>
+                <td id="P1"></td>
+                <td id="Q1"></td>
+                <td id="R1"></td>
+                <td id="S1"></td>
+                <td id="T1"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td id="K2"></td>
+                <td id="L2"></td>
+                <td id="M2"></td>
+                <td id="N2"></td>
+                <td id="O2"></td>
+                <td id="P2"></td>
+                <td id="Q2"></td>
+                <td id="R2"></td>
+                <td id="S2"></td>
+                <td id="T2"></td>
+            </tr>
 
             </table>
         </div>
