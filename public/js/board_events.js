@@ -4,6 +4,19 @@ var coords = document.getElementById('player');
 var createdBoard = {}
 var socket = io();
 var globalMyUserName = "";
+//If the shot is a hit then we shouldn't allow them to shoot that same position again
+var globalHitSpots = [];
+//The total number of avaiable shots, every time they are hit we will decrement
+//the first person to have their shots at 0 lose
+var totalShipSpots = 17;
+
+firebutton.addEventListener('click', ()=>{
+    socket.emit('fire',{
+        //Will send to the server
+        playerName: globalMyUserName,
+        coordiantes: coords.value,
+    });
+});
 
 function emitBoardState(){
     //First we gather the data inputed by the user and cache it to our local variable object
@@ -22,9 +35,8 @@ function emitBoardState(){
     socket.emit('create_board_state',{
         board: createdBoard
     });
-
-    // createBoard();
 }
+
 
 //we don't need to accept any data coming back as we have it already saved in our local variables
 //The server will be emiting a signal only to the person that has called it and not to everyone else
@@ -33,23 +45,37 @@ socket.on('create_board_state', ()=>{
     alert('You should have implemented this function!');
 });
 
-socket.on('connect', (data)=>{
-    console.log(data);
-})
-
-firebutton.addEventListener('click', ()=>{
-    const buildMessage = {
-        'coordinates': coords.value,
-        'playerName': 'PlayerExample'
-    }
-    socket.emit('fire',{
-        //Will send to the server
-        message: buildMessage
-    });
-});
+// socket.on('connect', (data)=>{
+//     console.log(data);
+// })
 
 socket.on('fire', (data)=>{
-    //a respone from the server
-    console.log(data.hit);
-
+    checkIfHit(data);
 });
+
+function checkIfHit(data){
+    // var myBoard = document.getElementById("tableP");
+    var x = data.message.coordinates.toUpperCase();
+    console.log(data)
+    var coordinateMarker = document.getElementById(x);
+    if(data.message.hit == 'true'){
+        //First we update the attacked player that they have been hit by taking away one from their totalShipSpots
+        totalShipSpots --;
+        //Next we need to update our board with where the hit was at
+        coordinateMarker.style.backgroundColor = "green";
+        //Finally we notify the attacking player that their attack has succeeded
+        notfiyPlayer(data);
+    }
+    else{
+        coordinateMarker.style.backgroundColor = "black";
+        //We still must notify the opponent so they can update their board
+        notfiyPlayer(data);
+    }
+}
+
+
+function notfiyPlayer(data){
+    // socket.emit("notifyPlayer", {
+
+    // });
+}
