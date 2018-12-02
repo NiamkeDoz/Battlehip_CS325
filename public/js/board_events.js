@@ -1,3 +1,7 @@
+// import io from 'socket.io-client'
+
+
+const socket = io()
 var firebutton  = document.getElementById('playerShot');
 var coords      = document.getElementById('player');
 var shot        = document.getElementById('player');
@@ -14,7 +18,7 @@ var desShip     = [];
 var shipColors  = ["blue","green","black","brown","pink","red","orange"];
 
 var createdBoard = {}
-var socket = io();
+// var socket = io();
 var globalMyUserName = "";
 //If the shot is a hit then we shouldn't allow them to shoot that same position again
 var globalHitSpots = [];
