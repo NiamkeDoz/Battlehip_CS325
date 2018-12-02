@@ -90,9 +90,19 @@ function checkIfHit(data){
     }
 }
 
-
 function notfiyPlayer(data){
     // socket.emit("notifyPlayer", {
 
     // });
+}
+
+function drawShips(ship, storedship){
+    //generates a random color for battleships.
+    var randomNum   = Math.floor(Math.random() * 7);
+    var color       = shipColors[randomNum];
+    var temp = ship.split(",");
+    for(var i = 0; i < temp.length; i++){
+        storedship.push(temp[i]);
+        document.getElementById(temp[i]).style.backgroundColor = color;
+    }
 }
