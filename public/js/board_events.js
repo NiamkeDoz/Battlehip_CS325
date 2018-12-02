@@ -3,7 +3,7 @@ var coords      = document.getElementById('player');
 var shot        = document.getElementById('player');
 var player1     = document.getElementById("tableP");
 var player2     = document.getElementById("tableOp"); 
-
+var counter     = 0;
 //Stores the ships locations
 var carShip     = [];
 var batShip     = [];
@@ -135,11 +135,12 @@ function getKeyByValue(object, value) {
 
 function drawShips(ship, storedship){
     //generates a random color for battleships.
-    var randomNum   = Math.floor(Math.random() * 7);
-    var color       = shipColors[randomNum];
+    //var randomNum   = Math.floor(Math.random() * 7);
+    var color       = shipColors[counter];
     var temp = ship.split(",");
     for(var i = 0; i < temp.length; i++){
         storedship.push(temp[i]);
         document.getElementById(temp[i]).style.backgroundColor = color;
     }
+    counter++;
 }
