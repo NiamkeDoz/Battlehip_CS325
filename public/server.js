@@ -50,6 +50,12 @@ io.on('connect', function(client){
             hit: isTargetHit(shootData)
         });
     });
+
+    client.on('create_board_state', (playerBoardData)=>{
+        //First we must save the players board data into peopleInGame;
+        createPlayerBoardState(playerBoardData);
+        client.emit('create_board_state',{});
+    });
 });
 
 //IO Functions
@@ -91,29 +97,24 @@ function addPlayerWin(playerName){
         }
     }
 }
-//End IO Functions
 
-//Express Routes
-app.get('/', (req,res) => {
-    res.sendFile("index.html");
-});
-
-app.post('/create_board_state', (req,res)=>{
+function createPlayerBoardState(playerBoardData){
+    console.log(playerBoardData)
     peopleinGame.push({
-        'playerName': req.body.playerName,
-        'carrier': req.body.destroyer.split(','),
-        'battleship': req.body.battleship.split(','),
-        'cruiser': req.body.cruiser.split(','),
-        'submarine': req.body.submarine.split(','),
-        'destroyer': req.body.destroyer.split(','),
+        'playerName': playerBoardData.board.playerName,
+        'carrier': playerBoardData.board.destroyer.split(','),
+        'battleship': playerBoardData.board.battleship.split(','),
+        'cruiser': playerBoardData.board.cruiser.split(','),
+        'submarine': playerBoardData.board.submarine.split(','),
+        'destroyer': playerBoardData.board.destroyer.split(','),
         'isPlayerTurn': globalIsPlayerTurn,
         'numberOfWins': PLAYER_WINS
     });
+    globalIsPlayerTurn = false;   
+}
+//End IO Functions
 
-    globalIsPlayerTurn = false;
-    globalLastPlayerToJoin = req.body.playerName;
-    res.redirect('/html/board.html');
-});
+//Express Routes
 
 app.get('/number_of_wins', (req,res)=>{
     for(var player in peopleinGame){
