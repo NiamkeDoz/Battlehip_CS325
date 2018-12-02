@@ -23,13 +23,19 @@ function cacheData(){
 
 }
 
-// var myRequest = new XMLHttpRequest();
-// myRequest.open('GET', 'index.html');
-// myRequest.onreadystatechange = function (){
-//     if(myRequest.readyState == 4){
-        
-//     }
-// }
+window.onload = function(){
+    var http = new XMLHttpRequest();
+
+    http.onreadystatechange = function(){
+        if(http.readyState == 4 && http.status == 200){
+            console.log(http.response);
+        }
+    }
+
+    http.open('GET', 'public/index.html', true);
+    http.send();
+}
+
 
 socket.on('connect', (data)=>{
     //alert('I have connected!');
