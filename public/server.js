@@ -54,14 +54,18 @@ io.on('connect', function(client){
         createPlayerBoardState(playerBoardData);
         client.emit('create_board_state',{});
     });
+
+    client.on('updateBoard', (hitData)=>{
+        client.broadcast.emit('updateBoard', {
+            data: hitData
+        })
+    });
 });
 
 //IO Functions
 function isTargetHit(shootData){
     const target = shootData.playerName;
     const coords = shootData.coordiantes;
-    console.log("target name" + target);
-    console.log("coordinates" + coords);
     var result = false;
 
     for(var player in peopleinGame){
