@@ -1,38 +1,80 @@
-.canvas{
-    width: 500px;
-    height: 500px;
-    border: solid 2px green;
-    padding-left: 0;
-    padding-right: 0;
-    margin-right: 100px;
-    margin-left: auto;
-    float: right;
+body{
+    background-color: #4CB5F5
+}
+
+#title{
+    font-size: 2em;
+    text-align: center;
+
+}
+
+.modal{
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    width: 50%;
+    height: 50%;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
 }
 
 #tableP{
-    display: inline-block;
+    display: block;
     width: 50%;
+    padding-bottom: 25px;
+    margin: 0 auto;
 
 }
+
 
 #tableP td:hover{
     background-color: blue;
     color: white;
 }
 
+#boardPieces input{
+    display: block;
+    text-align: center;
+}
+
 #tableOp{
-    float: left;
+    display: block;
     width: 50%;
+    margin: 0 auto;
 }
 
 #tableOp td:hover{
-    background-color: blue;
+    background-color: red;
     color: white;
 }
 
 table{
     border: solid 2px black;
-    
+    border-radius: 10px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #B7B8B6;
 }
 
 table td{
@@ -40,4 +82,56 @@ table td{
     height: 5%;
     text-align: center;
     border: solid 2px black;
+    border-radius: 5px;
+    background-color: white;
+    
+}
+
+.boardPieces img{
+    width: 25%;
+    height: 50px;
+}
+
+#playerInput{
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#submitBtn{
+    border: solid 2px black;
+    border-radius: 5px;
+    background-color: red;
+    width: 10%;
+}
+
+
+#playerInput #player {
+    text-align: center;
+    font-size: 1em;
+    padding: 10px;
+    width: 50%;
+    margin-bottom: 10px;
+    border: solid 2px black;
+    border-radius: 20px;
+    background-color: silver
+}
+
+#playerInput #playerShot{
+    width: 10%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 100px;
+    border: solid 2px black;
+    background-color: red;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#playerName {
+    margin-top: 20px;
+}
+
+input{
+    margin-bottom: 10px;
 }

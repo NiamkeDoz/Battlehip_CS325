@@ -1,0 +1,28 @@
+{
+  "name": "battlehip_cs325",
+  "version": "1.0.0",
+  "description": "\"you can play a game of battle ship\"",
+  "main": "public/server.js",
+  "dependencies": {
+    "eslint": "^5.9.0",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.7",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node public/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NiamkeDoz/Battlehip_CS325.git"
+  },
+  "author": "Emmett, Scooter, and Taylor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NiamkeDoz/Battlehip_CS325/issues"
+  },
+  "homepage": "https://github.com/NiamkeDoz/Battlehip_CS325#readme"
+}
