@@ -55,10 +55,10 @@ socket.on('fire', (data)=>{
 
 function checkIfHit(data){
     // var myBoard = document.getElementById("tableP");
-    var x = data.message.coordinates.toUpperCase();
-    console.log(data)
+    var x = data.message.coordiantes.toUpperCase();
+
     var coordinateMarker = document.getElementById(x);
-    if(data.message.hit == 'true'){
+    if(Boolean(data.hit)){
         //First we update the attacked player that they have been hit by taking away one from their totalShipSpots
         totalShipSpots --;
         //Next we need to update our board with where the hit was at
