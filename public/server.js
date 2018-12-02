@@ -9,11 +9,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.setMaxListeners(2);
 
-//Global Variable to set first oppenent to create game to attack first
+//Global Variable
 var globalIsPlayerTurn = true;
-
-//This will be our in memory data storage
-peopleinGame = [];
+const PLAYER_WINS = 0;
+peopleinGame = [];      //This will be our in memory data storage
+//End Global Variables
 
 //For testing purposes delete when we submit
 testPlayerData = {
@@ -22,7 +22,8 @@ testPlayerData = {
     'battleship': ['B1', 'B2', 'B3', 'B4'], //4
     'cruiser': ['C1','C2','C3'], //3print(__version__)
     'submarine': ['D1','D2','D3'], //3
-    'destroyer': ['E1','E2'] //2
+    'destroyer': ['E1','E2'], //2
+    'numberOfWins': PLAYER_WINS
 }
 peopleinGame.push(testPlayerData);
 //END of testing purposes
@@ -32,10 +33,10 @@ peopleinGame.push(testPlayerData);
 io.on('connect', function(client){
     console.log('Client connected...');
     client.on('connect', ()=>{
-        client.emit('connect',{
-            message: 'hello'
-        })
-    })
+        // client.emit('connect',{
+        //     message: 'hello '
+        // });
+    });
 
     client.on('join', (data)=>{
         console.log(data);
@@ -47,21 +48,22 @@ io.on('connect', function(client){
             hit: isTargetHit(shootData)
         });
     });
+
+    client.on('create_board_state', (playerBoardData)=>{
+        //First we must save the players board data into peopleInGame;
+        createPlayerBoardState(playerBoardData);
+        client.emit('create_board_state',{});
+    });
 });
 
 //IO Functions
 function isTargetHit(shootData){
-    console.log(shootData.message.coordinates);
-
-    const target = shootData.message.playerName;
-    const coords = shootData.message.coordinates;
+    const target = shootData.playerName;
+    const coords = shootData.coordinates;
     var result = false;
 
     for(var player in peopleinGame){
         if(target != peopleinGame[player].playerName){
-            peopleinGame[player].isPlayerTurn = false;
-        }
-        if(target == peopleinGame[player].playerName){
             //enable the player that was just attacked to true
             peopleinGame[player].isPlayerTurn = true;
             if(peopleinGame[player].carrier.includes(coords)){
@@ -81,30 +83,41 @@ function isTargetHit(shootData){
     }
     return result;
 }
+
+function addPlayerWin(playerName){
+    for(var player in peopleinGame){
+        if(playerName == peopleinGame[player]){
+            peopleinGame[player].numberOfWins += 1;
+        }
+    }
+}
+
+function createPlayerBoardState(playerBoardData){
+    peopleinGame.push({
+        'playerName': playerBoardData.board.playerName,
+        'carrier': playerBoardData.board.destroyer.split(','),
+        'battleship': playerBoardData.board.battleship.split(','),
+        'cruiser': playerBoardData.board.cruiser.split(','),
+        'submarine': playerBoardData.board.submarine.split(','),
+        'destroyer': playerBoardData.board.destroyer.split(','),
+        'isPlayerTurn': globalIsPlayerTurn,
+        'numberOfWins': PLAYER_WINS
+    });
+    globalIsPlayerTurn = false;   
+}
 //End IO Functions
 
 //Express Routes
-
+app.get('/number_of_wins', (req,res)=>{
+    for(var player in peopleinGame){
+        if(req.query.playerName == peopleinGame[player].playerName){
+            res.send(peopleinGame[player].numberOfWins);
+        }
+    }
+    res.send('player not found')
+});
 //End Express Routes
-app.get('/', (req,res) => {
-    res.sendFile("index.html");
-});
 
-app.post('/create_board_state', (req,res)=>{
-    peopleinGame.push({
-        'playerName': req.body.playerName,
-        'carrier': req.body.destroyer.split(','),
-        'battleship': req.body.battleship.split(','),
-        'cruiser': req.body.cruiser.split(','),
-        'submarine': req.body.submarine.split(','),
-        'destroyer': req.body.destroyer.split(','),
-        'isPlayerTurn': globalIsPlayerTurn
-    });
-
-    globalIsPlayerTurn = false;
-
-    res.redirect('/html/board.html');
-});
 
 app.get('/number_of_wins', (req,res)=>{
     res.send('hello');
