@@ -11,6 +11,7 @@ app.setMaxListeners(2);
 
 //Global Variable
 var globalIsPlayerTurn = true;
+var globalLastPlayerToJoin = "";
 const PLAYER_WINS = 0;
 //This will be our in memory data storage
 peopleinGame = [];
@@ -110,7 +111,7 @@ app.post('/create_board_state', (req,res)=>{
     });
 
     globalIsPlayerTurn = false;
-
+    globalLastPlayerToJoin = req.body.playerName;
     res.redirect('/html/board.html');
 });
 

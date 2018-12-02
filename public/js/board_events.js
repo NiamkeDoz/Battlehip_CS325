@@ -14,10 +14,11 @@ function cacheData(){
     createdBoard["submarine"]= document.forms["createUserBoard"]["submarine"].value;
     createdBoard["destroyer"]= document.forms["createUserBoard"]["destroyer"].value;
     //Now we can build our board when the connection event happens
+    
 }
 
 socket.on('connect', (data)=>{
-    alert('I have connected!');
+    console.log(data);
 })
 
 firebutton.addEventListener('click', ()=>{
