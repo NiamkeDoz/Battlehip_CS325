@@ -59,7 +59,9 @@ io.on('connect', function(client){
 //IO Functions
 function isTargetHit(shootData){
     const target = shootData.playerName;
-    const coords = shootData.coordinates;
+    const coords = shootData.coordiantes;
+    console.log("target name" + target);
+    console.log("coordinates" + coords);
     var result = false;
 
     for(var player in peopleinGame){
