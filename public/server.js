@@ -106,5 +106,9 @@ app.post('/create_board_state', (req,res)=>{
     res.redirect('/html/board.html');
 });
 
+app.get('/number_of_wins', (req,res)=>{
+    res.send('hello');
+});
+
 const port = process.env.PORT || 3000;
 server.listen(port, () => console.log(`Listening port ${port}`));

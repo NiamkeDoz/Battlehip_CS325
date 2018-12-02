@@ -1,6 +1,6 @@
 var firebutton  = document.getElementById('playerShot');
 var coords      = document.getElementById('player');
-var shot        = document.getElementById('player').value;
+var shot        = document.getElementById('player');
 var player1     = document.getElementById("tableP");
 var player2     = document.getElementById("tableOp"); 
 
@@ -25,14 +25,13 @@ function cacheData(){
 
 window.onload = function(){
     var http = new XMLHttpRequest();
-
+    http.open('GET', 'http://localhost:3000/number_of_wins', true);
     http.onreadystatechange = function(){
         if(http.readyState == 4 && http.status == 200){
             console.log(http.response);
         }
     }
 
-    http.open('GET', 'public/index.html', true);
     http.send();
 }
 
