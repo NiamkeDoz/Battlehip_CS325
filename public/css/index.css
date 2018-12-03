@@ -154,7 +154,18 @@ input{
     border-radius: 10px;
     background: #B7B8B6;
     margin: 0 auto;
+    width: 23%;
+    height: 380px;
     
+}
+
+#message-response{
+    border: 2px solid #dedede;
+    background-color: rgb(244, 240, 240);
+    min-height: 100px;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
 }
 
 #form label{
@@ -162,9 +173,9 @@ input{
 }
 
 #form textarea{
-    width: 300px;
+    width: 99%;
     min-height: 100px;
-    margin: 0 auto;
+    margin-bottom: 10px;
     border: none;
     border-radius: 5px;
     background: #f1f1f1;
@@ -176,18 +187,20 @@ input{
 
 #form h1{
     text-align: center;
+    margin: 0 auto;
 }
 
 #form button{
     display: block;
     float: right;
     padding: 10px;
-    margin: 0 auto;
+    margin-bottom: 5px;
     font-size: 1rem;
     font-weight: bold;
     width: 50%;
     border: solid 2px black;
 }
+
 
 #sendBtn{
     background: rgb(13, 228, 13);
