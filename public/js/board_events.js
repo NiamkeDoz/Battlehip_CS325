@@ -145,6 +145,9 @@ function drawShips(ship, storedship){
     counter++;
 }
 
+function changed(){
+    document.getElementById("bck").style.backgroundColor="green";
+}
 
 // function isShipSunk(ship, x, shipSpots){
 //     var shipLength = ship.length;
