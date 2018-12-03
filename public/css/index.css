@@ -155,14 +155,14 @@ input{
     background: #B7B8B6;
     margin: 0 auto;
     width: 23%;
-    height: 380px;
+    height: 450px;
     
 }
 
 #message-response{
     border: 2px solid #dedede;
     background-color: rgb(244, 240, 240);
-    min-height: 100px;
+    min-height: 200px;
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
@@ -174,7 +174,7 @@ input{
 
 #form textarea{
     width: 99%;
-    min-height: 100px;
+    min-height: 20px;
     margin-bottom: 10px;
     border: none;
     border-radius: 5px;
@@ -197,7 +197,7 @@ input{
     margin-bottom: 5px;
     font-size: 1rem;
     font-weight: bold;
-    width: 50%;
+    width: 100%;
     border: solid 2px black;
 }
 
