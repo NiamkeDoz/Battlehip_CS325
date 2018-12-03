@@ -144,3 +144,17 @@ function drawShips(ship, storedship){
     }
     counter++;
 }
+
+
+// function isShipSunk(ship, x, shipSpots){
+//     var shipLength = ship.length;
+//     for(var i = 0; i<shipLength; i++){
+//         if(x == ship[i]){
+//             console.log(shipSpots--);
+//         }
+//     }
+
+//     if(shipSpots == 0){
+//         alert("Ship sunk!");
+//     }
+// }
