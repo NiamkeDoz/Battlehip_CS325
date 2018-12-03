@@ -147,17 +147,18 @@ input{
     margin-bottom: 10px;
 }
 
-#form{
+#chat{
     display: block;
     float: right;
     border: solid 2px black;
     border-radius: 10px;
     background: #B7B8B6;
     margin: 0 auto;
+    margin-right: 10px;
     width: 23%;
     height: 450px;
-    
 }
+
 
 #message-response{
     border: 2px solid #dedede;
@@ -190,7 +191,7 @@ input{
     margin: 0 auto;
 }
 
-#form button{
+#chat button{
     display: block;
     float: right;
     padding: 10px;
@@ -201,9 +202,17 @@ input{
     border: solid 2px black;
 }
 
+#firedShots{
+    float: left;
+    margin-left: 35px;
+    height: 100px;
+    width: 20%;
+    background: white;
+}
 
 #sendBtn{
     background: rgb(13, 228, 13);
+    float: left;
 }
 
 #cancelBtn{
