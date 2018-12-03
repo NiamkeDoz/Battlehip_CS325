@@ -167,6 +167,7 @@ input{
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
+    overflow-y: scroll;
 }
 
 #form label{
@@ -182,9 +183,8 @@ input{
     background: #f1f1f1;
     resize: none;
     font-size: 1.5em;
-    
+    overflow-y: scroll;
 }
-
 
 #form h1{
     text-align: center;

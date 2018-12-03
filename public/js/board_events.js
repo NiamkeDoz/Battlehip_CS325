@@ -1,3 +1,7 @@
+// import io from 'socket.io-client'
+
+
+const socket = io()
 var firebutton  = document.getElementById('playerShot');
 var coords      = document.getElementById('player');
 var shot        = document.getElementById('player');
@@ -14,17 +18,20 @@ var desShip     = [];
 var shipColors  = ["blue","#00ff21","#898989","#b200ff","pink","red","#ffae00"];
 
 var createdBoard = {}
-var socket = io();
+// var socket = io();
 var globalMyUserName = "";
 //If the shot is a hit then we shouldn't allow them to shoot that same position again
 var globalHitSpots = [];
 //The total number of avaiable shots, every time they are hit we will decrement
 //the first person to have their shots at 0 lose
 var totalShipSpots = 17;
-
+//Chat functions
+var submitChatButton = document.getElementById("sendBtn");
+var messageDisplayArea = document.getElementById("message-response");
 //these will be used to translate the values from A-J to L-T
 const translateCoords = {'K': 'A', 'L': 'B', 'M': 'C', 'N': 'D', 'O': 'E', 'P': 'F', 'Q': 'G', 'R': 'H', 'S': 'I', 'T': 'J' }
 
+//Attached Event Listeners to DOM Objects
 firebutton.addEventListener('click', ()=>{
     socket.emit('fire',{
         //Will send to the server
@@ -33,6 +40,13 @@ firebutton.addEventListener('click', ()=>{
     });
 });
 
+submitChatButton.addEventListener('click', ()=>{
+    socket.emit('message',{
+        userName: globalMyUserName,
+        message: document.getElementById('createdMessage').value
+    });
+});
+//End Event Listeners
 function emitBoardState(){
     //First we gather the data inputed by the user and cache it to our local variable object
     createdBoard["playerName"] = document.forms["createUserBoard"]["playerName"].value;
@@ -52,6 +66,12 @@ function emitBoardState(){
     });
 }
 
+socket.on('message', (sentMessage)=>{
+    document.getElementById('createdMessage').innerText = "";
+    var displayMessage = document.createElement('p');
+    displayMessage.innerHTML = sentMessage.sentMessage.userName + ": " + sentMessage.sentMessage.message + "<br>";
+    messageDisplayArea.appendChild(displayMessage)
+});
 
 //we don't need to accept any data coming back as we have it already saved in our local variables
 //The server will be emiting a signal only to the person that has called it and not to everyone else
@@ -148,16 +168,3 @@ function drawShips(ship, storedship){
 function changed(){
     document.getElementById("bck").style.backgroundColor="green";
 }
-
-// function isShipSunk(ship, x, shipSpots){
-//     var shipLength = ship.length;
-//     for(var i = 0; i<shipLength; i++){
-//         if(x == ship[i]){
-//             console.log(shipSpots--);
-//         }
-//     }
-
-//     if(shipSpots == 0){
-//         alert("Ship sunk!");
-//     }
-// }

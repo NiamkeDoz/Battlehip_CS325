@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-const app = express();
+var app = express();
+app.set('port', process.env.PORT|| 3000);
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
@@ -59,6 +60,12 @@ io.on('connect', function(client){
         client.broadcast.emit('updateBoard', {
             data: hitData
         })
+    });
+
+    client.on('message', (sentMessage)=>{
+        io.emit('message', {
+            sentMessage: sentMessage
+        });
     });
 });
 
@@ -123,11 +130,6 @@ app.get('/number_of_wins', (req,res)=>{
     res.send('player not found')
 });
 //End Express Routes
-
-
-app.get('/number_of_wins', (req,res)=>{
-    res.send('hello');
-});
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => console.log(`Listening port ${port}`));
