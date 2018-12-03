@@ -61,6 +61,12 @@ io.on('connect', function(client){
             data: hitData
         })
     });
+
+    client.on('message', (sentMessage)=>{
+        io.emit('message', {
+            sentMessage: sentMessage
+        });
+    });
 });
 
 //IO Functions
