@@ -12,6 +12,25 @@
 <body id="bck">
     <h1 id=title>BattleShip</h1>
 
+    
+    <div id="chat">
+        <form id="form">
+            <h1>Chat</h1>
+            <div id="message-response">
+                <!-- This is where the messages will be dynamically placed -->
+            </div>
+            <label for="">Message</label>
+            <br>
+            <textarea placeholder="Type message.." name="msg" required></textarea>
+            <br>
+        </form>
+        <button id="sendBtn">Send</button>
+    </div>
+
+    <div>
+        
+    </div>
+      
     <div id="tableP">
         <table>
             <tr>
@@ -184,22 +203,20 @@
         <span id="message">N/A</span>
     </div>
     
-    
-
     <div id="tableOp">
         <table>
             <tr>
                 <td></td>
-                <td>K</td>
-                <td>L</td>
-                <td>M</td>
-                <td>N</td>
-                <td>O</td>
-                <td>P</td>
-                <td>Q</td>
-                <td>R</td>
-                <td>S</td>
-                <td>T</td>
+                <td>A</td>
+                <td>B</td>
+                <td>C</td>
+                <td>D</td>
+                <td>E</td>
+                <td>F</td>
+                <td>G</td>
+                <td>H</td>
+                <td>I</td>
+                <td>J</td>
             </tr>
             <tr>
                 <td>1</td>
@@ -337,9 +354,10 @@
             </tr>
         </table>
     </div>
-    <div>
-    </div>
 
+    
+       
+    </div>
     <!-- Our socket events will be here  -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/board_events.js"></script>
