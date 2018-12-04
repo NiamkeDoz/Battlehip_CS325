@@ -1,5 +1,6 @@
 var hitlist=[];
 var text = "";
+var coordinates = document.getElementById("player").value;;
 function createList() {
     text="";
     var coordinates = document.getElementById("player").value;

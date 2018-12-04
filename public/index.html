@@ -161,13 +161,22 @@
             </tr>
         </table>
         <!-- event.preventDefault(); place this inside the onsubmit if you want to test functions -->
+        <p> Please fill out the following fields to set up a new game. </p>
         <form id="createUserBoard" onsubmit= "validateForm();"  action="/create_board_state"  method="POST">
-            <input type="text" name="playerName" id="playerName" placeholder="UserName" required>
-            <input type="text" name="carrier" id="carrier-input" placeholder="Carrier" required>
-            <input type="text" name="battleship" id="battleship-input" placeholder="BattleShip" required>
-            <input type="text" name="cruiser" id="cruiser-input" placeholder="Cruiser" required>
-            <input type="text" name="submarine" id="submarine-input" placeholder="Submarine" required>
-            <input type="text" name="destroyer" id="destryoer-input" placeholder="Destroyer" required>
+            <label>Name:</label>
+            <input type="text" name="playerName" id="playerName" placeholder="UserName" 
+                pattern="[A-Za-z0-9]{4,30}" title="The name must be between 4 and 30 characters in length. 
+                It can only contain alphabetic characters and numbers" required>
+            
+            <label>Carrier:</label>
+            <input type="text" name="carrier" id="carrier-input" placeholder="Carrier" 
+            pattern="[A-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10]{,15}" 
+            title="This field requires the following format: A1,A2,A3,A4,A5" required>
+
+            Battleship:<input type="text" name="battleship" id="battleship-input" placeholder="BattleShip" required>
+            Crusier:<input type="text" name="cruiser" id="cruiser-input" placeholder="Cruiser" required>
+            Submarine:<input type="text" name="submarine" id="submarine-input" placeholder="Submarine" required>
+            Destroyer:<input type="text" name="destroyer" id="destryoer-input" placeholder="Destroyer" required>
             <button type="submit">Submit</button>
         </form>
 </body>
