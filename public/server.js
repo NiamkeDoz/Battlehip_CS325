@@ -16,17 +16,17 @@ const PLAYER_WINS = 0;
 peopleinGame = [];      //This will be our in memory data storage
 //End Global Variables
 
-//For testing purposes delete when we submit
-testPlayerData = {
-    'playerName': 'testPlayer',
-    'carrier': ['A1', 'A2','A3','A4','A5'], //5
-    'battleship': ['B1', 'B2', 'B3', 'B4'], //4
-    'cruiser': ['C1','C2','C3'], //3print(__version__)
-    'submarine': ['D1','D2','D3'], //3
-    'destroyer': ['E1','E2'], //2
-    'numberOfWins': PLAYER_WINS
-}
-peopleinGame.push(testPlayerData);
+// //For testing purposes delete when we submit
+// testPlayerData = {
+//     'playerName': 'testPlayer',
+//     'carrier': ['A1', 'A2','A3','A4','A5'], //5
+//     'battleship': ['B1', 'B2', 'B3', 'B4'], //4
+//     'cruiser': ['C1','C2','C3'], //3print(__version__)
+//     'submarine': ['D1','D2','D3'], //3
+//     'destroyer': ['E1','E2'], //2
+//     'numberOfWins': PLAYER_WINS
+// }
+// peopleinGame.push(testPlayerData);
 //END of testing purposes
 
 

@@ -163,11 +163,12 @@ input{
 #message-response{
     border: 2px solid #dedede;
     background-color: rgb(244, 240, 240);
-    min-height: 200px;
+    height: 200px;
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
-    overflow-y: scroll;
+    overflow-y: auto;
+    
 }
 
 #form label{

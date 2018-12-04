@@ -61,6 +61,7 @@ function emitBoardState(){
     //We save our userName created to globalMyUserName so it can be referred to later
     globalMyUserName = createdBoard["playerName"]
     //Finally we emit a create_board_state from the client and send the event to our server
+    console.log(createdBoard);
     socket.emit('create_board_state',{
         board: createdBoard
     });
