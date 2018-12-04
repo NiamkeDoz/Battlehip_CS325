@@ -189,12 +189,35 @@
         <h2>Create Your Board</h2>
         <!--  action="/create_board_state"  method="POST" -->
     <form name="createUserBoard" onsubmit= "event.preventDefault();  emitBoardState();">
-        <input value="User1" type="text" name="playerName" id="playerName" placeholder="UserName" required>
-        <input value="A1,A2,A3,A4,A5" type="text" name="carrier" id="carrier-input" placeholder="Carrier" required>
-        <input value="J1,J2,J3,J4" type="text" name="battleship" id="battleship-input" placeholder="BattleShip" required>
-        <input value="D3,D4,D5" type="text" name="cruiser" id="cruiser-input" placeholder="Cruiser" required>
-        <input value="F2,F3,F4" type="text" name="submarine" id="submarine-input" placeholder="Submarine" required>
-        <input value="E1,F1" type="text" name="destroyer" id="destryoer-input" placeholder="Destroyer" required>
+        <label> Enter name:</label>
+        <input value="User1" type="text" name="playerName" id="playerName" placeholder="UserName" 
+                pattern="[A-Za-z0-9]{4,30}" title="The name must be between 4 and 30 characters in length. 
+                It can only contain alphabetic characters and numbers" required><br />
+            
+        <label> Enter 5 coordinates to place Carrier:</label><br />
+        <input value="A1,A2,A3,A4,A5" type="text" name="carrier" id="carrier-input" placeholder="Carrier" 
+            pattern="[A-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10]{,19}" 
+            title="This field requires the following format: A1,A2,A3,A4,A5" required><br />
+        
+        <label> Enter 4 coordinates to place Battleship:</label><br />
+        <input value="J1,J2,J3,J4" type="text" name="battleship" id="battleship-input" placeholder="BattleShip"
+            pattern="[A-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10]{,15}" 
+            title="This field requires the following format: J1,J2,J3,J4" required><br />
+
+        <label> Enter 4 coordinates to place Crusier:</label><br />
+        <input value="D3,D4,D5" type="text" name="cruiser" id="cruiser-input" placeholder="Cruiser" 
+            pattern="[A-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10]{,15}" 
+            title="This field requires the following format: D3,D4,D5" required><br />
+
+        <label> Enter 3 coordinates to place Submarine:</label><br />
+        <input value="F2,F3,F4" type="text" name="submarine" id="submarine-input" placeholder="Submarine" 
+            pattern="[A-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10]{,15}" 
+            title="This field requires the following format: A1,A2,A3,A4,A5" required><br />
+
+        <label> Enter 2 coordinates to place Destroyer:</label><br />
+        <input value="E1,F1" type="text" name="destroyer" id="destryoer-input" placeholder="Destroyer" 
+            pattern="[A-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10\SA-Ja-j0-10]{,15}" 
+            title="This field requires the following format: F2,F3,F4" required><br />
         <button type="submit">Submit</button>
     </form>
     </div>
